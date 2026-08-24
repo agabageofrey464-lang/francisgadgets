@@ -1,6 +1,6 @@
 "use client";
 
-import { LayoutDashboard, Package, Tags, ShoppingBag, Users, ExternalLink } from "lucide-react";
+import { LayoutDashboard, Megaphone, Package, Tags, ShoppingBag, Users, ExternalLink } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,6 +29,7 @@ export function Sidebar() {
     { href: "/admin/categories", label: "Categories", icon: Tags, count: stats?.categories_count },
     { href: "/admin/orders", label: "Orders", icon: ShoppingBag, count: stats?.pending_orders, countTone: "warning" as const },
     { href: "/admin/customers", label: "Customers", icon: Users, count: stats?.customers_count },
+    { href: "/admin/ads", label: "Ads", icon: Megaphone, count: undefined },
   ];
 
   return (

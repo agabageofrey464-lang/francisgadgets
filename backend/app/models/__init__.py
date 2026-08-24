@@ -1,4 +1,4 @@
-from app.models.ad import Ad, AdPlacement
+from app.models.ad import Ad, AdMediaType, AdPlacement
 from app.models.address import Address
 from app.models.category import Category
 from app.models.order import Order, OrderItem, OrderStatus
@@ -9,6 +9,7 @@ from app.models.user import User, UserRole
 
 __all__ = [
     "Ad",
+    "AdMediaType",
     "AdPlacement",
     "Address",
     "Category",

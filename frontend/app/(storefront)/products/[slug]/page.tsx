@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { ProductActions } from "@/components/storefront/ProductActions";
@@ -15,6 +16,35 @@ async function getProduct(slug: string): Promise<Product | null> {
     if (err instanceof ApiError && err.status === 404) return null;
     throw err;
   }
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const product = await getProduct(slug);
+  if (!product) return { title: "Product not found" };
+
+  const description =
+    product.description?.slice(0, 160) ?? `Buy ${product.name} in Uganda -- ${formatCurrency(product.price)}.`;
+  const image = product.images[0]?.url;
+
+  return {
+    title: product.name,
+    description,
+    alternates: { canonical: `/products/${product.slug}` },
+    openGraph: {
+      title: product.name,
+      description,
+      type: "website",
+      url: `/products/${product.slug}`,
+      images: image ? [{ url: image }] : undefined,
+    },
+    twitter: {
+      card: image ? "summary_large_image" : "summary",
+      title: product.name,
+      description,
+      images: image ? [image] : undefined,
+    },
+  };
 }
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {

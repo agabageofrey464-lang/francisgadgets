@@ -109,6 +109,24 @@ export interface Review {
   user: User;
 }
 
+export type AdPlacement = "homepage_top" | "homepage_mid" | "product_list" | "sidebar";
+export type AdMediaType = "image" | "video";
+
+export interface Ad {
+  id: number;
+  advertiser_name: string;
+  media_url: string;
+  media_type: AdMediaType;
+  link_url: string;
+  placement: AdPlacement;
+  starts_at: string;
+  ends_at: string;
+  is_active: boolean;
+  click_count: number;
+  impression_count: number;
+  created_at: string;
+}
+
 export interface DashboardStats {
   total_sales: string;
   orders_count: number;

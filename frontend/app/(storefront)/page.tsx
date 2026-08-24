@@ -1,6 +1,10 @@
+import { ShieldCheck, Truck } from "lucide-react";
 import Link from "next/link";
 
+import { AdSlot } from "@/components/storefront/AdSlot";
+import { HeroBanner } from "@/components/storefront/HeroBanner";
 import { ProductCard } from "@/components/storefront/ProductCard";
+import { TaglineMarquee } from "@/components/storefront/TaglineMarquee";
 import { apiFetch } from "@/lib/api";
 import type { Category, Page, ProductListItem } from "@/lib/types";
 
@@ -25,25 +29,56 @@ export default async function HomePage() {
 
   return (
     <div>
+      <HeroBanner />
+
       <section className="bg-ink-900">
-        <div className="mx-auto flex max-w-7xl flex-col items-start gap-4 px-4 py-16 sm:px-6 md:py-24">
+        <h1 className="sr-only">Your digital dreams delivered.</h1>
+
+        <div className="mx-auto flex max-w-7xl flex-col items-start gap-4 px-4 pt-16 sm:px-6 md:pt-24">
           <span className="rounded-full bg-brand-600/20 px-3 py-1 text-xs font-medium text-brand-300">
             New arrivals every week
           </span>
-          <h1 className="max-w-2xl text-3xl font-bold text-white sm:text-5xl">
-            The latest gadgets, at prices that make sense.
-          </h1>
-          <p className="max-w-xl text-gray-300">
-            Phones, laptops, audio and accessories -- genuine products, fast delivery across Uganda.
-          </p>
+        </div>
+
+        <div className="my-6">
+          <TaglineMarquee />
+        </div>
+
+        <div className="mx-auto flex max-w-7xl flex-col items-start gap-5 px-4 pb-16 sm:px-6 md:pb-24">
+          <div className="flex flex-wrap gap-2">
+            {["Phones", "Laptops", "Audio", "Accessories"].map((label) => (
+              <span
+                key={label}
+                className="rounded-md bg-white/5 px-2.5 py-1 text-xs font-medium text-gray-300 ring-1 ring-inset ring-white/10"
+              >
+                {label}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-300">
+            <span className="flex items-center gap-1.5">
+              <ShieldCheck className="h-4 w-4 text-accent-500" />
+              Genuine products
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Truck className="h-4 w-4 text-accent-500" />
+              Fast delivery across Uganda
+            </span>
+          </div>
+
           <Link
             href="/products"
-            className="mt-2 rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white hover:bg-brand-700"
+            className="mt-1 rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-700"
           >
             Shop now
           </Link>
         </div>
       </section>
+
+      <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6">
+        <AdSlot placement="homepage_mid" />
+      </div>
 
       {categories.length > 0 && (
         <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6">

@@ -1,11 +1,12 @@
 "use client";
 
-import { ShoppingCart, User as UserIcon, LogOut, LayoutDashboard, Search, Globe, ChevronDown } from "lucide-react";
+import { ShoppingCart, User as UserIcon, LogOut, LayoutDashboard, Search, ChevronDown } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import { UgandaFlagIcon } from "@/components/storefront/UgandaFlagIcon";
 import { apiFetch } from "@/lib/api";
 import { cartCount, useCartStore } from "@/lib/cart-store";
 import type { Category } from "@/lib/types";
@@ -106,8 +107,8 @@ export function Navbar() {
           </Link>
 
           <span className="ml-1 hidden items-center gap-1.5 border-l border-gray-200 pl-3 text-xs font-medium text-gray-500 sm:flex">
-            <Globe className="h-3.5 w-3.5" />
-            <span>&#127988;&#127976; Uganda &middot; EN</span>
+            <UgandaFlagIcon className="h-3 w-[18px] shrink-0 rounded-[2px]" />
+            <span>Uganda &middot; EN</span>
           </span>
         </div>
       </div>

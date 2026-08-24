@@ -42,6 +42,15 @@ const config: Config = {
       backgroundImage: {
         "brand-flag": "linear-gradient(90deg, #8532ad 0%, #9b44c7 45%, #f2680f 100%)",
       },
+      keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+      },
+      animation: {
+        marquee: "marquee 22s linear infinite",
+      },
     },
   },
   plugins: [],

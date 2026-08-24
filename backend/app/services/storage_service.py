@@ -6,11 +6,14 @@ from fastapi import UploadFile
 from app.core.config import settings
 
 
+_ALLOWED_EXTENSIONS = {"jpg", "jpeg", "png", "webp", "gif", "avif", "mp4", "webm", "mov"}
+
+
 def _safe_extension(filename: str | None) -> str:
     if not filename or "." not in filename:
         return ""
     ext = filename.rsplit(".", 1)[-1].lower()
-    if ext not in {"jpg", "jpeg", "png", "webp", "gif", "avif"}:
+    if ext not in _ALLOWED_EXTENSIONS:
         return "jpg"
     return ext
 

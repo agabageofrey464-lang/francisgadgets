@@ -2,12 +2,13 @@ from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from app.models.ad import AdPlacement
+from app.models.ad import AdMediaType, AdPlacement
 
 
 class AdBase(BaseModel):
     advertiser_name: str = Field(min_length=1, max_length=150)
-    image_url: str
+    media_url: str
+    media_type: AdMediaType = AdMediaType.IMAGE
     link_url: str
     placement: AdPlacement
     starts_at: datetime
@@ -21,7 +22,8 @@ class AdCreate(AdBase):
 
 class AdUpdate(BaseModel):
     advertiser_name: str | None = None
-    image_url: str | None = None
+    media_url: str | None = None
+    media_type: AdMediaType | None = None
     link_url: str | None = None
     placement: AdPlacement | None = None
     starts_at: datetime | None = None

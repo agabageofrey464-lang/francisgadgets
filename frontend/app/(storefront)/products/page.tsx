@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
+import { AdSlot } from "@/components/storefront/AdSlot";
 import { ProductCard } from "@/components/storefront/ProductCard";
 import { apiFetch } from "@/lib/api";
-import type { Page, ProductListItem } from "@/lib/types";
+import type { Category, Page, ProductListItem } from "@/lib/types";
 
 interface SearchParams {
   q?: string;
@@ -21,6 +23,32 @@ async function getProducts(searchParams: SearchParams) {
       page_size: 12,
     },
   });
+}
+
+export async function generateMetadata({
+  searchParams: searchParamsPromise,
+}: {
+  searchParams: Promise<SearchParams>;
+}): Promise<Metadata> {
+  const searchParams = await searchParamsPromise;
+
+  if (searchParams.category) {
+    const categories = await apiFetch<Category[]>("/categories").catch(() => []);
+    const category = categories.find((c) => c.slug === searchParams.category);
+    if (category) {
+      return {
+        title: category.name,
+        description: `Shop ${category.name} in Uganda -- genuine products, fast delivery.`,
+        alternates: { canonical: `/products?category=${category.slug}` },
+      };
+    }
+  }
+
+  if (searchParams.q) {
+    return { title: `Search: ${searchParams.q}`, robots: { index: false, follow: true } };
+  }
+
+  return { title: "Shop all products", alternates: { canonical: "/products" } };
 }
 
 export default async function ProductsPage({ searchParams: searchParamsPromise }: { searchParams: Promise<SearchParams> }) {
@@ -80,6 +108,10 @@ export default async function ProductsPage({ searchParams: searchParamsPromise }
           ))}
         </div>
       )}
+
+      <div className="mt-8">
+        <AdSlot placement="product_list" />
+      </div>
 
       {products.pages > 1 && (
         <div className="mt-8 flex justify-center gap-2">

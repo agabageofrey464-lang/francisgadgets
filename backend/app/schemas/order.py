@@ -53,3 +53,7 @@ class OrderRead(BaseModel):
 
 class OrderStatusUpdate(BaseModel):
     status: OrderStatus
+
+
+class OrderCurrencyUpdate(BaseModel):
+    currency: str = Field(min_length=3, max_length=3)

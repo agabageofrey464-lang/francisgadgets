@@ -39,6 +39,7 @@ SAMPLE_CATEGORIES = [
     "Audio",
     "Phone Accessories",
     "Computer Accessories",
+    "Installation & Services",
 ]
 
 
@@ -51,6 +52,12 @@ def _wiki(filename: str) -> str:
 
 def _unsplash(photo_id: str) -> str:
     return f"https://images.unsplash.com/photo-{photo_id}?w=800"
+
+
+def _local(filename: str) -> str:
+    # Real photos supplied directly by the store owner, served from the
+    # frontend's public/ folder (same-origin relative path).
+    return f"/{quote(filename)}"
 
 
 def _placeholder(label: str) -> str:
@@ -370,25 +377,25 @@ SAMPLE_PRODUCTS = [
         "name": 'Lenovo IdeaPad Slim 3 14AMN8 14" Laptop',
         "description": "14-inch everyday laptop.",
         "price": 2185000, "compare_at_price": 2300000, "sku": "LEN-IPS3-14AMN8",
-        "stock_quantity": 10, "category": "Laptops", "image": _wiki("Lenovo_IdeaPad_320.jpg"),
+        "stock_quantity": 10, "category": "Laptops", "image": _local("8.webp"),
     },
     {
         "name": 'HP ProBook 4 G1iR 16" Laptop | Intel Core 5',
         "description": "16-inch business laptop, Intel Core 5.",
         "price": 3776000, "compare_at_price": 4000000, "sku": "HP-PB4-G1IR-16",
-        "stock_quantity": 8, "category": "Laptops", "image": _wiki("HP_ProBook_640_G1.jpg"),
+        "stock_quantity": 8, "category": "Laptops", "image": _local("1 (2).jpg"),
     },
     {
         "name": 'HP ProBook 4 G1iR 14" Laptop Intel Core 5 120U',
         "description": "14-inch business laptop, Intel Core 5 120U.",
         "price": 3776000, "compare_at_price": 4000000, "sku": "HP-PB4-G1IR-14",
-        "stock_quantity": 8, "category": "Laptops", "image": _wiki("HP_ProBook_640_G1.jpg"),
+        "stock_quantity": 8, "category": "Laptops", "image": _local("1 (3).jpg"),
     },
     {
         "name": 'HP ProBook 4 G1i 16" WUXGA Laptop | Intel',
         "description": "16-inch WUXGA business laptop.",
         "price": 4023000, "compare_at_price": 4300000, "sku": "HP-PB4-G1I-16",
-        "stock_quantity": 6, "category": "Laptops", "image": _wiki("HP_ProBook_640_G1.jpg"),
+        "stock_quantity": 6, "category": "Laptops", "image": _local("5.webp"),
     },
     {
         "name": 'Lenovo ThinkCentre Neo 50a Gen 5 24" FHD All-in-One',
@@ -406,19 +413,19 @@ SAMPLE_PRODUCTS = [
         "name": "HP OMEN Transcend 14 Voco 25C1 Intel Core",
         "description": "14-inch gaming laptop, Intel Core.",
         "price": 9068000, "compare_at_price": 9250000, "sku": "HP-OMEN-TRANS14",
-        "stock_quantity": 3, "category": "Laptops", "image": _wiki("My Omen - keyboard.jpg"),
+        "stock_quantity": 3, "category": "Laptops", "image": _local("7.webp"),
     },
     {
         "name": "HP OMEN Hanna 16 Gaming Laptop Intel",
         "description": "16-inch gaming laptop, Intel.",
         "price": 11535000, "compare_at_price": 12000000, "sku": "HP-OMEN-HANNA16",
-        "stock_quantity": 2, "category": "Laptops", "image": _wiki("My Omen - keyboard.jpg"),
+        "stock_quantity": 2, "category": "Laptops", "image": _local("6.webp"),
     },
     {
         "name": "HP HyperX OMEN 15-ga0005TX Gaming",
         "description": "15-inch gaming laptop, HyperX edition.",
         "price": 8844000, "compare_at_price": 9000000, "sku": "HP-OMEN-15GA0005TX",
-        "stock_quantity": 3, "category": "Laptops", "image": _wiki("My Omen - keyboard.jpg"),
+        "stock_quantity": 3, "category": "Laptops", "image": _local("4.webp"),
     },
     {
         "name": 'Lenovo ThinkCentre Neo 50a Gen 6 24" All-in-One',
@@ -448,7 +455,7 @@ SAMPLE_PRODUCTS = [
         "name": "HP Laptop 15-fd1126nia Intel Core Ultra 5 125H",
         "description": "15-inch laptop, Intel Core Ultra 5 125H.",
         "price": 3104000, "compare_at_price": 3200000, "sku": "HP-15FD1126NIA",
-        "stock_quantity": 10, "category": "Laptops", "image": _wiki("HP_ProBook_640_G1.jpg"),
+        "stock_quantity": 10, "category": "Laptops", "image": _local("2.jpg"),
     },
     {
         "name": "Lenovo ThinkCentre Neo 50t Gen 6 Desktop - Intel",
@@ -472,13 +479,46 @@ SAMPLE_PRODUCTS = [
         "name": "Dell Pro 15 PV15250 Laptop | Intel Core 3",
         "description": "15-inch laptop, Intel Core 3.",
         "price": 2342000, "compare_at_price": 2400000, "sku": "DELL-PV15250",
-        "stock_quantity": 9, "category": "Laptops", "image": _wiki("Dell_Vostro_14_5000_Series_Laptop.jpg"),
+        "stock_quantity": 9, "category": "Laptops", "image": _local("1 (1).jpg"),
     },
     {
         "name": 'Lenovo IdeaPad Slim 3 14AMN8 14" FHD Laptop',
         "description": "14-inch FHD everyday laptop.",
         "price": 2185000, "compare_at_price": 2500000, "sku": "LEN-IPS3-14AMN8-FHD",
-        "stock_quantity": 10, "category": "Laptops", "image": _wiki("Lenovo_IdeaPad_320.jpg"),
+        "stock_quantity": 10, "category": "Laptops", "image": _local("1 (4).jpg"),
+    },
+    # --- Networking ---
+    {
+        "name": "ASUS TUF Gaming Wi-Fi Router",
+        "description": "High-performance dual-band Wi-Fi router with multiple external antennas for wide coverage.",
+        "price": 320000, "compare_at_price": None, "sku": "ASUS-TUF-ROUTER",
+        "stock_quantity": 10, "category": "Networking", "image": _wiki("ASUS_Wi-Fi_ROUTER_TUF_6500.jpg"),
+    },
+    # --- Installation & Services ---
+    {
+        "name": "CCTV Installation Service (Per Camera)",
+        "description": "Professional installation, cable routing, and setup for one CCTV camera, including basic configuration and mobile app connection.",
+        "price": 50000, "compare_at_price": None, "sku": "SVC-CCTV-INSTALL",
+        "stock_quantity": 999, "category": "Installation & Services",
+        "image": _wiki("Hikvision @ P+R Étoile @ Carouge (50514011831).jpg"),
+    },
+    {
+        "name": "GPS Tracker Installation & Activation",
+        "description": "Professional fitting of a vehicle or asset GPS tracker, SIM activation, and mobile app setup.",
+        "price": 30000, "compare_at_price": None, "sku": "SVC-GPS-INSTALL",
+        "stock_quantity": 999, "category": "Installation & Services", "image": _wiki("Garmin_Etrex_H_7262.jpg"),
+    },
+    {
+        "name": "Laptop/Computer Setup & Software Installation",
+        "description": "Operating system setup, essential software installation, and data transfer for a new laptop or desktop.",
+        "price": 25000, "compare_at_price": None, "sku": "SVC-PC-SETUP",
+        "stock_quantity": 999, "category": "Installation & Services", "image": _local("2.jpg"),
+    },
+    {
+        "name": "Home/Office Wi-Fi Network Setup",
+        "description": "Router installation, Wi-Fi configuration, and network optimization for your home or office.",
+        "price": 80000, "compare_at_price": None, "sku": "SVC-NETWORK-SETUP",
+        "stock_quantity": 999, "category": "Installation & Services", "image": _wiki("ASUS_Wi-Fi_ROUTER_TUF_6500.jpg"),
     },
 ]
 

@@ -16,6 +16,7 @@ node_modules/
 frontend/.next/
 frontend/out/
 frontend/.vercel/
+frontend/*.tsbuildinfo
 
 # OS
 .DS_Store

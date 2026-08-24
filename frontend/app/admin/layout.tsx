@@ -10,7 +10,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <div className="relative flex min-h-[calc(100vh-64px)]">
+    <div className="relative flex min-h-screen">
       <Sidebar />
       <div className="flex-1 bg-gray-50 p-4 sm:p-6">
         <div className="mx-auto max-w-6xl">{children}</div>
