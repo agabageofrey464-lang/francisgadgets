@@ -2,7 +2,6 @@
 
 import {
   ChevronDown,
-  LayoutDashboard,
   LogOut,
   Menu,
   MessageCircle,
@@ -49,7 +48,6 @@ export function Navbar() {
   }, []);
 
   const count = mounted ? cartCount(items) : 0;
-  const isAdmin = session?.user.role === "admin";
 
   return (
     <header className="sticky top-0 z-40 border-b border-gray-200 bg-white">
@@ -115,16 +113,6 @@ export function Navbar() {
         <SearchBar categories={categories} className="hidden flex-1 md:block md:max-w-2xl" />
 
         <div className="ml-auto flex items-center gap-1">
-          {isAdmin && (
-            <Link
-              href="/admin"
-              className="hidden items-center gap-1.5 rounded-lg px-2.5 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-ink-900 sm:flex"
-            >
-              <LayoutDashboard className="h-[18px] w-[18px]" />
-              <span className="hidden xl:inline">Admin</span>
-            </Link>
-          )}
-
           {session ? (
             <>
               {/* The category row no longer carries "My Orders", so this is the
@@ -220,7 +208,6 @@ export function Navbar() {
         onClose={() => setMenuOpen(false)}
         categories={categories}
         isAuthenticated={Boolean(session)}
-        isAdmin={Boolean(isAdmin)}
       />
     </header>
   );

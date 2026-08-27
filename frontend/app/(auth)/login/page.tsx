@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, LayoutDashboard, Lock, Megaphone, Package, ShieldCheck, ShoppingBag, Truck } from "lucide-react";
+import { ArrowLeft, Package, ShieldCheck, Truck } from "lucide-react";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,12 +10,6 @@ import toast from "react-hot-toast";
 
 import { Button } from "@/components/ui/Button";
 import { Input, Label } from "@/components/ui/Input";
-
-const ADMIN_POINTS = [
-  { icon: Package, label: "Catalogue", body: "Add products, images, stock levels and pricing." },
-  { icon: ShoppingBag, label: "Orders", body: "Track payments, fulfilment and delivery status." },
-  { icon: Megaphone, label: "Ads", body: "Schedule homepage banners and video placements." },
-];
 
 const SHOP_POINTS = [
   { icon: ShieldCheck, label: "Genuine products", body: "Sourced from authorised channels." },
@@ -39,8 +33,7 @@ function LoginForm() {
   const [loading, setLoading] = useState(false);
 
   const callbackUrl = searchParams.get("callbackUrl") ?? "/";
-  const isAdminLogin = callbackUrl.startsWith("/admin");
-  const points = isAdminLogin ? ADMIN_POINTS : SHOP_POINTS;
+  const points = SHOP_POINTS;
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,7 +51,7 @@ function LoginForm() {
 
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
-      {/* Brand panel -- the admin console gets its own identity, not the shop's. */}
+      {/* Brand panel. */}
       <aside className="relative hidden overflow-hidden bg-ink-900 lg:flex lg:flex-col lg:justify-between lg:p-12">
         <div className="absolute inset-x-0 top-0 h-1 bg-brand-flag" />
         <div
@@ -75,24 +68,15 @@ function LoginForm() {
           <span>
             <span className="block text-sm font-semibold leading-tight text-white">Francis Gadgets</span>
             <span className="block text-[11px] font-semibold uppercase tracking-wider text-brand-400">
-              {isAdminLogin ? "Admin Console" : "Technologies"}
+              Technologies
             </span>
           </span>
         </div>
 
         <div className="relative">
           <h2 className="max-w-md text-3xl font-extrabold leading-tight tracking-tight text-white">
-            {isAdminLogin ? (
-              <>
-                Run the shop from{" "}
-                <span className="bg-brand-flag bg-clip-text text-transparent">one console.</span>
-              </>
-            ) : (
-              <>
-                Your digital dreams,{" "}
-                <span className="bg-brand-flag bg-clip-text text-transparent">delivered.</span>
-              </>
-            )}
+            Your digital dreams,{" "}
+            <span className="bg-brand-flag bg-clip-text text-transparent">delivered.</span>
           </h2>
 
           <ul className="mt-8 space-y-5">
@@ -130,25 +114,14 @@ function LoginForm() {
               <span>
                 <span className="block text-sm font-semibold leading-tight text-ink-900">Francis Gadgets</span>
                 <span className="block text-[11px] font-semibold uppercase tracking-wider text-brand-600">
-                  {isAdminLogin ? "Admin Console" : "Technologies"}
+                  Technologies
                 </span>
               </span>
             </div>
 
-            {isAdminLogin && (
-              <span className="mb-4 inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
-                <LayoutDashboard className="h-3.5 w-3.5" />
-                Staff access
-              </span>
-            )}
-
-            <h1 className="mb-1 text-2xl font-bold text-ink-900">
-              {isAdminLogin ? "Admin sign in" : "Welcome back"}
-            </h1>
+            <h1 className="mb-1 text-2xl font-bold text-ink-900">Welcome back</h1>
             <p className="mb-6 text-sm text-gray-500">
-              {isAdminLogin
-                ? "Authorised staff accounts only."
-                : "Sign in to track orders and check out faster."}
+              Sign in to track orders and check out faster.
             </p>
 
             <form onSubmit={submit} className="space-y-4 rounded-xl border border-gray-200 bg-white p-6">
@@ -167,25 +140,16 @@ function LoginForm() {
                 />
               </div>
               <Button type="submit" className="w-full" isLoading={loading}>
-                {isAdminLogin ? "Sign in to console" : "Sign in"}
+                Sign in
               </Button>
-
-              {isAdminLogin && (
-                <p className="flex items-center justify-center gap-1.5 text-xs text-gray-400">
-                  <Lock className="h-3.5 w-3.5" />
-                  This area is restricted and access is logged.
-                </p>
-              )}
             </form>
 
-            {!isAdminLogin && (
-              <p className="mt-6 text-center text-sm text-gray-500">
-                Don&apos;t have an account?{" "}
-                <Link href="/register" className="font-medium text-brand-600 hover:underline">
-                  Create one
-                </Link>
-              </p>
-            )}
+            <p className="mt-6 text-center text-sm text-gray-500">
+              Don&apos;t have an account?{" "}
+              <Link href="/register" className="font-medium text-brand-600 hover:underline">
+                Create one
+              </Link>
+            </p>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { Diagonals } from "@/components/ui/Pattern";
 import { categoryIcon } from "@/lib/category-icons";
 
-/** Drawn stand-in for a category that has no photo set in the admin. */
+/** Drawn stand-in for a category that has no photo set on it. */
 export function CategoryTileGraphic({ slug, name }: { slug: string; name: string }) {
   const Icon = categoryIcon(slug);
 
