@@ -14,7 +14,7 @@ export function ProductActions({ product }: { product: Product }) {
   const inStock = product.stock_quantity > 0;
 
   return (
-    <div className="mt-6 flex items-center gap-3">
+    <div className="mt-4 flex items-center gap-2.5">
       <div className="flex items-center rounded-lg border border-gray-300">
         <button
           className="px-3 py-2 text-gray-500 hover:text-ink-900"
@@ -23,7 +23,7 @@ export function ProductActions({ product }: { product: Product }) {
         >
           <Minus className="h-4 w-4" />
         </button>
-        <span className="w-8 text-center text-sm font-medium">{quantity}</span>
+        <span className="nums w-8 text-center text-sm font-medium">{quantity}</span>
         <button
           className="px-3 py-2 text-gray-500 hover:text-ink-900"
           onClick={() => setQuantity((q) => Math.min(product.stock_quantity, q + 1))}

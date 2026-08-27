@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 
+import { PageHeader } from "@/components/admin/PageHeader";
 import { ProductForm } from "@/components/admin/ProductForm";
 import { ApiError, apiFetch } from "@/lib/api";
 import { getSession } from "@/lib/session";
@@ -18,7 +19,7 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-bold text-ink-900">Edit product</h1>
+      <PageHeader title="Edit product" description="Update pricing, stock, images and description." />
       <ProductForm product={product} />
     </div>
   );

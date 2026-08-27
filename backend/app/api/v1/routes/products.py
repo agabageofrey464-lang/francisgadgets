@@ -1,12 +1,13 @@
 import math
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
-from sqlalchemy import func, select
+from sqlalchemy import func, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
 from app.core.database import get_db
 from app.models.product import Product
+from app.models.review import Review
 from app.schemas.common import Page
 from app.schemas.product import ProductListItem, ProductRead
 
@@ -30,7 +31,16 @@ async def list_products(
     stmt = stmt.where(Product.is_active.is_(True))
 
     if q:
-        stmt = stmt.where(Product.name.ilike(f"%{q}%"))
+        # Shoppers search by model number and part name as often as by product
+        # title, so match the description and SKU too.
+        term = f"%{q}%"
+        stmt = stmt.where(
+            or_(
+                Product.name.ilike(term),
+                Product.description.ilike(term),
+                Product.sku.ilike(term),
+            )
+        )
     if category_id:
         stmt = stmt.where(Product.category_id == category_id)
     if category_slug:
@@ -59,8 +69,26 @@ async def list_products(
     stmt = stmt.offset((page - 1) * page_size).limit(page_size)
     products = (await db.execute(stmt)).scalars().all()
 
+    # Review aggregates for this page only -- one grouped query, not one per row.
+    ratings: dict[int, tuple[float, int]] = {}
+    if products:
+        rating_stmt = (
+            select(Review.product_id, func.avg(Review.rating), func.count(Review.id))
+            .where(Review.product_id.in_([p.id for p in products]))
+            .group_by(Review.product_id)
+        )
+        for product_id, average, total in (await db.execute(rating_stmt)).all():
+            ratings[product_id] = (float(average), int(total))
+
+    def to_item(product: Product) -> ProductListItem:
+        item = ProductListItem.model_validate(product)
+        average, total = ratings.get(product.id, (None, 0))
+        item.rating_average = average
+        item.review_count = total
+        return item
+
     return Page[ProductListItem](
-        items=[ProductListItem.model_validate(p) for p in products],
+        items=[to_item(p) for p in products],
         total=total,
         page=page,
         page_size=page_size,

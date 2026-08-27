@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { AdMedia } from "@/components/storefront/AdMedia";
 import { HomeMarquee } from "@/components/storefront/HomeMarquee";
 import { apiFetch } from "@/lib/api";
-import type { Ad } from "@/lib/types";
+import type { Ad, ProductListItem } from "@/lib/types";
 
 const ROTATE_MS = 4000;
 const SYNC_DRIFT_SECONDS = 0.15;
@@ -60,7 +60,7 @@ function AdColumn({ ads, index, side, muted, onToggleMute, onActiveVideoRef }: A
   );
 }
 
-export function HeroBanner() {
+export function HeroBanner({ products = [] }: { products?: ProductListItem[] }) {
   const [ads, setAds] = useState<Ad[]>([]);
   const [index, setIndex] = useState(0);
   const [muted, setMuted] = useState(true);
@@ -129,7 +129,7 @@ export function HeroBanner() {
       )}
 
       <div className={ads.length > 0 ? "min-w-0 flex-1" : "w-full"}>
-        <HomeMarquee />
+        <HomeMarquee products={products} />
       </div>
 
       {ads.length > 0 && (

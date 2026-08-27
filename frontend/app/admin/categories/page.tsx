@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 import { Button } from "@/components/ui/Button";
+import { PageHeader } from "@/components/admin/PageHeader";
 import { Card } from "@/components/ui/Card";
 import { Input, Label, Textarea } from "@/components/ui/Input";
 import { ApiError, apiFetch } from "@/lib/api";
@@ -88,13 +89,12 @@ export default function AdminCategoriesPage() {
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-ink-900">Categories</h1>
+      <PageHeader title="Categories" description="How products are grouped across the storefront.">
         <Button onClick={startCreate}>
           <Plus className="h-4 w-4" />
           New category
         </Button>
-      </div>
+      </PageHeader>
 
       {showForm && (
         <Card className="mb-6 max-w-lg p-4">

@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 import { Button } from "@/components/ui/Button";
+import { PageHeader } from "@/components/admin/PageHeader";
 import { Card } from "@/components/ui/Card";
 import { Input, Label } from "@/components/ui/Input";
 import { ApiError, apiFetch } from "@/lib/api";
@@ -178,16 +179,12 @@ export default function AdminAdsPage() {
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-ink-900">Ads</h1>
-          <p className="text-sm text-gray-500">Sell ad placements to other businesses across the storefront.</p>
-        </div>
+      <PageHeader title="Ads" description="Sell ad placements to other businesses across the storefront.">
         <Button onClick={startCreate}>
           <Plus className="h-4 w-4" />
           New ad
         </Button>
-      </div>
+      </PageHeader>
 
       {showForm && (
         <Card className="mb-6 max-w-lg p-4">

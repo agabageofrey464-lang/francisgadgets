@@ -1,9 +1,10 @@
+import { PageHeader } from "@/components/admin/PageHeader";
 import { ProductForm } from "@/components/admin/ProductForm";
 
 export default function NewProductPage() {
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-bold text-ink-900">New product</h1>
+      <PageHeader title="New product" description="Add an item to the catalogue." />
       <ProductForm />
     </div>
   );

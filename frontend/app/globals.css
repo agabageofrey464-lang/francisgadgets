@@ -3,6 +3,48 @@
 @tailwind utilities;
 
 body {
-  color: #0b0f19;
-  background-color: #f7f8fb;
+  color: #0f172a;
+  background-color: #f4f8f8;
+  /* Inter's own fallback metrics are close, but let the browser render at the
+     face's intended weights rather than faking any that are missing. */
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings use the display face; everything else inherits Inter from <body>. */
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-jakarta), var(--font-inter), system-ui, sans-serif;
+  letter-spacing: -0.015em;
+  /* Stops a two-line product title or section heading leaving one orphan word
+     on the second line -- the single biggest readability win on a shop grid. */
+  text-wrap: balance;
+}
+
+h1 {
+  letter-spacing: -0.022em;
+}
+
+/* Body copy reads better when the last line is not a single short word. */
+p {
+  text-wrap: pretty;
+}
+
+/* Prices, quantities and order totals are read in columns and compared against
+   each other, so their digits must occupy identical widths. Proportional
+   figures make a stack of prices look ragged and are harder to scan. */
+.nums,
+[data-nums] {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* A price is a number first: keep the digits tight so the figure reads as one
+   unit rather than a string of loose characters. */
+.price {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.02em;
 }

@@ -16,6 +16,8 @@ export interface Category {
   slug: string;
   description: string | null;
   parent_id: number | null;
+  product_count: number;
+  image_url: string | null;
 }
 
 export interface ProductImage {
@@ -35,6 +37,9 @@ export interface ProductListItem {
   is_active: boolean;
   images: ProductImage[];
   category: Category | null;
+  /** null until the product has at least one review. */
+  rating_average: number | null;
+  review_count: number;
 }
 
 export interface Product extends ProductListItem {

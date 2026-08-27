@@ -1,6 +1,8 @@
 "use client";
 
+import { ArrowLeft } from "lucide-react";
 import { signIn } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -43,11 +45,28 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="mx-auto flex min-h-[70vh] max-w-sm flex-col justify-center px-4 py-12 sm:px-6">
+    <div className="flex min-h-screen flex-col bg-gray-50">
+      <div className="border-b border-gray-200 bg-white px-4 py-3 sm:px-6">
+        <Link href="/" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-brand-600">
+          <ArrowLeft className="h-4 w-4" />
+          Back to store
+        </Link>
+      </div>
+
+      <div className="flex flex-1 items-center justify-center px-4 py-12 sm:px-6">
+      <div className="w-full max-w-sm">
+      <div className="mb-6 flex items-center gap-3">
+        <Image src="/logo.jpg" alt="" width={40} height={40} className="rounded-full" />
+        <span>
+          <span className="block text-sm font-semibold leading-tight text-ink-900">Francis Gadgets</span>
+          <span className="block text-[11px] font-semibold uppercase tracking-wider text-brand-600">Technologies</span>
+        </span>
+      </div>
+
       <h1 className="mb-1 text-2xl font-bold text-ink-900">Create your account</h1>
       <p className="mb-6 text-sm text-gray-500">Join Francis Gadgets Technologies</p>
 
-      <form onSubmit={submit} className="space-y-4">
+      <form onSubmit={submit} className="space-y-4 rounded-xl border border-gray-200 bg-white p-6">
         <div>
           <Label htmlFor="full_name">Full name</Label>
           <Input id="full_name" required value={form.full_name} onChange={update("full_name")} />
@@ -82,6 +101,8 @@ export default function RegisterPage() {
           Sign in
         </Link>
       </p>
+      </div>
+      </div>
     </div>
   );
 }

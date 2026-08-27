@@ -1,35 +1,80 @@
+import { ChevronRight, Headphones, PackageSearch, ShoppingBag, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 
-import { Card } from "@/components/ui/Card";
+import { Breadcrumbs } from "@/components/storefront/Breadcrumbs";
+import { Badge } from "@/components/ui/Card";
 import { getSession } from "@/lib/session";
+
+const SHORTCUTS: { href: string; icon: LucideIcon; title: string; body: string }[] = [
+  { href: "/orders", icon: ShoppingBag, title: "My orders", body: "Everything you have bought from us." },
+  { href: "/track-order", icon: PackageSearch, title: "Track an order", body: "See where a delivery has reached." },
+  { href: "/contact", icon: Headphones, title: "Get help", body: "Warranty, returns or product advice." },
+];
+
+/** First letters of the name, for the avatar disc. */
+function initials(name: string | null | undefined): string {
+  if (!name) return "?";
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? "")
+    .join("");
+}
 
 export default async function AccountPage() {
   const session = await getSession();
+  const user = session?.user;
 
   return (
-    <div className="mx-auto max-w-xl px-4 py-8 sm:px-6">
-      <h1 className="mb-6 text-2xl font-bold text-ink-900">My account</h1>
+    <div className="mx-auto max-w-3xl px-4 py-5 sm:px-6">
+      <Breadcrumbs trail={[{ label: "My account" }]} />
+      <h1 className="mt-4 text-xl font-bold text-ink-900 sm:text-2xl">My account</h1>
 
-      <Card className="p-5">
-        <dl className="space-y-3 text-sm">
-          <div className="flex justify-between">
-            <dt className="text-gray-500">Name</dt>
-            <dd className="font-medium text-ink-900">{session?.user.name}</dd>
+      <div className="mt-4 rounded-xl border border-gray-200 bg-white p-4 sm:p-5">
+        <div className="flex items-center gap-4">
+          <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-brand-600 text-lg font-bold text-white">
+            {initials(user?.name)}
+          </span>
+          <div className="min-w-0">
+            <p className="truncate text-base font-bold text-ink-900">{user?.name ?? "--"}</p>
+            <p className="truncate text-sm text-gray-500">{user?.email ?? "--"}</p>
           </div>
-          <div className="flex justify-between">
-            <dt className="text-gray-500">Email</dt>
-            <dd className="font-medium text-ink-900">{session?.user.email}</dd>
-          </div>
-          <div className="flex justify-between">
-            <dt className="text-gray-500">Role</dt>
-            <dd className="font-medium capitalize text-ink-900">{session?.user.role}</dd>
-          </div>
-        </dl>
-      </Card>
+          {user?.role && (
+            <Badge tone={user.role === "admin" ? "info" : "default"} className="ml-auto shrink-0 capitalize">
+              {user.role}
+            </Badge>
+          )}
+        </div>
 
-      <Link href="/orders" className="mt-4 inline-block text-sm font-medium text-brand-600 hover:underline">
-        View my orders &rarr;
-      </Link>
+        {user?.role === "admin" && (
+          <Link
+            href="/admin"
+            className="mt-4 flex items-center justify-between rounded-lg border border-brand-200 bg-brand-50 px-3.5 py-2.5 text-sm font-semibold text-brand-700 transition-colors hover:bg-brand-100"
+          >
+            Open the admin dashboard
+            <ChevronRight className="h-4 w-4" />
+          </Link>
+        )}
+      </div>
+
+      <div className="mt-4 grid gap-3 sm:grid-cols-3">
+        {SHORTCUTS.map((shortcut) => (
+          <Link
+            key={shortcut.href}
+            href={shortcut.href}
+            className="group rounded-xl border border-gray-200 bg-white p-4 transition-colors hover:border-brand-300"
+          >
+            <span className="grid h-9 w-9 place-items-center rounded-lg bg-brand-50 text-brand-600">
+              <shortcut.icon className="h-[18px] w-[18px]" />
+            </span>
+            <p className="mt-2.5 text-sm font-semibold text-ink-900 group-hover:text-brand-700">
+              {shortcut.title}
+            </p>
+            <p className="mt-0.5 text-xs leading-relaxed text-gray-500">{shortcut.body}</p>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

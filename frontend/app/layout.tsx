@@ -1,9 +1,30 @@
 import type { Metadata } from "next";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 
 import { Providers } from "./providers";
 import "./globals.css";
+
+// Body copy: Inter. Headings: Plus Jakarta Sans -- a touch more character
+// without losing Inter's legibility at small sizes.
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+  preload: true,
+  // Matched to Inter's metrics so the swap from the fallback does not reflow.
+  fallback: ["system-ui", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
+});
+
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-jakarta",
+  weight: ["500", "600", "700", "800"],
+  display: "swap",
+  preload: true,
+  fallback: ["system-ui", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -34,8 +55,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className="flex min-h-screen flex-col antialiased">
+    <html lang="en" className={`${inter.variable} ${jakarta.variable}`}>
+      <body className="flex min-h-screen flex-col font-sans antialiased">
         <Providers>{children}</Providers>
       </body>
     </html>

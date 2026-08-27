@@ -68,3 +68,7 @@ class ProductListItem(BaseModel):
     is_active: bool
     images: list[ProductImageRead] = []
     category: CategoryRead | None = None
+    # Filled in by the listing endpoint; 0 review_count means "never rated",
+    # which the storefront renders as no stars rather than as zero stars.
+    rating_average: float | None = None
+    review_count: int = 0

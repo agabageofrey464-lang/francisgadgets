@@ -25,7 +25,8 @@ if (process.env.NEXT_PUBLIC_IMAGE_HOST) {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: { remotePatterns },
+  // 90 is used by the homepage hero so product shots stay crisp on high-DPI/4K screens.
+  images: { remotePatterns, qualities: [75, 90] },
   devIndicators: false,
 };
 

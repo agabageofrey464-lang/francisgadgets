@@ -3,6 +3,7 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
+import { PageHeader } from "@/components/admin/PageHeader";
 import { Badge, Card } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { apiFetch } from "@/lib/api";
@@ -32,7 +33,7 @@ export default function AdminCustomersPage() {
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-bold text-ink-900">Customers</h1>
+      <PageHeader title="Customers" description="Everyone who has registered an account." />
 
       <div className="mb-4 flex gap-2">
         <Input

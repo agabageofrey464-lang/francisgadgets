@@ -1,36 +1,17 @@
 "use client";
 
-import { LayoutDashboard, Megaphone, Package, Tags, ShoppingBag, Users, ExternalLink } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 
-import { apiFetch } from "@/lib/api";
-import type { DashboardStats } from "@/lib/types";
+import { buildAdminLinks, isActiveLink, useAdminStats } from "@/components/admin/nav";
 import { cn } from "@/lib/utils";
 
 export function Sidebar() {
   const pathname = usePathname();
-  const { data: session } = useSession();
-  const [stats, setStats] = useState<DashboardStats | null>(null);
-
-  useEffect(() => {
-    if (!session?.accessToken) return;
-    apiFetch<DashboardStats>("/admin/dashboard/stats", { token: session.accessToken })
-      .then(setStats)
-      .catch(() => setStats(null));
-  }, [session?.accessToken]);
-
-  const links = [
-    { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true, count: undefined },
-    { href: "/admin/products", label: "Products", icon: Package, count: stats?.products_count },
-    { href: "/admin/categories", label: "Categories", icon: Tags, count: stats?.categories_count },
-    { href: "/admin/orders", label: "Orders", icon: ShoppingBag, count: stats?.pending_orders, countTone: "warning" as const },
-    { href: "/admin/customers", label: "Customers", icon: Users, count: stats?.customers_count },
-    { href: "/admin/ads", label: "Ads", icon: Megaphone, count: undefined },
-  ];
+  const stats = useAdminStats();
+  const links = buildAdminLinks(stats);
 
   return (
     <aside className="relative hidden w-64 shrink-0 flex-col border-r-2 border-accent-500 bg-ink-900 md:flex">
@@ -45,8 +26,9 @@ export function Sidebar() {
         </Link>
       </div>
       <nav className="flex-1 space-y-1 px-3">
-        {links.map(({ href, label, icon: Icon, exact, count, countTone }) => {
-          const active = exact ? pathname === href : pathname.startsWith(href);
+        {links.map((link) => {
+          const { href, label, icon: Icon, count, countTone } = link;
+          const active = isActiveLink(pathname, link);
           return (
             <Link
               key={href}

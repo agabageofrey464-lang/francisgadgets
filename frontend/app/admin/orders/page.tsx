@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
+import { PageHeader } from "@/components/admin/PageHeader";
 import { Badge, Card } from "@/components/ui/Card";
 import { apiFetch } from "@/lib/api";
 import type { Order, OrderStatus, Page } from "@/lib/types";
@@ -40,7 +41,7 @@ function AdminOrdersContent() {
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-bold text-ink-900">Orders</h1>
+      <PageHeader title="Orders" description="Payments, fulfilment and delivery status." />
 
       <div className="mb-4 flex flex-wrap gap-2">
         <button

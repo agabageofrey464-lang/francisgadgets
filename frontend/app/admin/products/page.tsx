@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
+import { PageHeader } from "@/components/admin/PageHeader";
 import { Badge, Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -53,15 +54,14 @@ export default function AdminProductsPage() {
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-ink-900">Products</h1>
+      <PageHeader title="Products" description="Your catalogue -- pricing, stock and images.">
         <Link href="/admin/products/new">
           <Button>
             <Plus className="h-4 w-4" />
             New product
           </Button>
         </Link>
-      </div>
+      </PageHeader>
 
       <div className="mb-4 flex gap-2">
         <Input

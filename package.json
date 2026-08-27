@@ -1,0 +1,17 @@
+{
+  "name": "francis-gadgets",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Repo-root shortcuts. The Next.js app lives in frontend/, the FastAPI app in backend/ -- these let you run either from here without cd-ing first.",
+  "scripts": {
+    "dev": "npm --prefix frontend run dev -- -p 3100",
+    "build": "npm --prefix frontend run build",
+    "start": "npm --prefix frontend run start -- -p 3100",
+    "lint": "npm --prefix frontend run lint",
+    "typecheck": "npm --prefix frontend exec tsc -- --noEmit",
+    "install:frontend": "npm --prefix frontend install",
+    "api": "cd backend && .venv/Scripts/python.exe -m uvicorn app.main:app --port 8100 --reload",
+    "api:seed": "cd backend && .venv/Scripts/python.exe scripts/seed.py",
+    "api:test": "cd backend && .venv/Scripts/python.exe -m pytest -q"
+  }
+}

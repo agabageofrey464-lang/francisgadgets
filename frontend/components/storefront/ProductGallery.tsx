@@ -1,38 +1,36 @@
 "use client";
 
-import Image from "next/image";
-import { useState } from "react";
-
+import { ProductThumb } from "@/components/storefront/ProductThumb";
 import type { ProductImage } from "@/lib/types";
 
-export function ProductGallery({ images, name }: { images: ProductImage[]; name: string }) {
-  const [active, setActive] = useState(0);
-  const current = images[active];
-
+/**
+ * The product's artwork on its detail page.
+ *
+ * The catalogue is illustrated rather than photographed for now, so there is a
+ * single drawn image per product and no thumbnail strip to page through. When
+ * real photography arrives, pass `preferPhoto` and the stored images come back
+ * -- the strip returns with them.
+ */
+export function ProductGallery({
+  images,
+  name,
+  categorySlug,
+}: {
+  images: ProductImage[];
+  name: string;
+  categorySlug?: string | null;
+}) {
   return (
-    <div>
-      <div className="relative aspect-square overflow-hidden rounded-xl border border-gray-200 bg-gray-50">
-        {current ? (
-          <Image src={current.url} alt={current.alt_text ?? name} fill className="object-cover" priority />
-        ) : (
-          <div className="grid h-full w-full place-items-center text-sm text-gray-400">No image</div>
-        )}
-      </div>
-      {images.length > 1 && (
-        <div className="mt-3 flex gap-2">
-          {images.map((img, i) => (
-            <button
-              key={img.id}
-              onClick={() => setActive(i)}
-              className={`relative h-16 w-16 overflow-hidden rounded-lg border ${
-                i === active ? "border-brand-600" : "border-gray-200"
-              }`}
-            >
-              <Image src={img.url} alt={img.alt_text ?? name} fill className="object-cover" />
-            </button>
-          ))}
-        </div>
-      )}
+    <div className="relative aspect-square overflow-hidden rounded-xl border border-gray-200 bg-white">
+      <ProductThumb
+        image={images[0]}
+        name={name}
+        categorySlug={categorySlug}
+        sizes="(max-width: 768px) 100vw, 40vw"
+        patternId="gallery-art"
+        priority
+        className="object-contain p-4"
+      />
     </div>
   );
 }

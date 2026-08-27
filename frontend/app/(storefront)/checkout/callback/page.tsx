@@ -1,14 +1,16 @@
 "use client";
 
-import { CheckCircle2, XCircle } from "lucide-react";
+import { CheckCircle2, MessageCircle, XCircle } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
+import { CheckoutSteps } from "@/components/storefront/CheckoutSteps";
 import { Button } from "@/components/ui/Button";
 import { Spinner } from "@/components/ui/Card";
 import { apiFetch } from "@/lib/api";
+import { CONTACT } from "@/lib/social";
 
 interface VerifyResponse {
   reference: string;
@@ -17,13 +19,26 @@ interface VerifyResponse {
   order_number: string;
 }
 
+/** One card shape for every outcome, so the page does not jump about as it resolves. */
+function ResultCard({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mx-auto max-w-lg px-4 py-10 sm:px-6 sm:py-14">
+      <div className="mb-6 flex justify-center">
+        <CheckoutSteps current={2} />
+      </div>
+      <div className="rounded-xl border border-gray-200 bg-white p-6 text-center sm:p-8">{children}</div>
+    </div>
+  );
+}
+
 export default function CheckoutCallbackPage() {
   return (
     <Suspense
       fallback={
-        <div className="mx-auto flex max-w-lg flex-col items-center px-4 py-20 text-center sm:px-6">
-          <Spinner className="mb-4 h-10 w-10" />
-        </div>
+        <ResultCard>
+          <Spinner className="mx-auto mb-4 h-10 w-10" />
+          <h1 className="text-lg font-bold text-ink-900">Loading...</h1>
+        </ResultCard>
       }
     >
       <CheckoutCallbackContent />
@@ -67,51 +82,89 @@ function CheckoutCallbackContent() {
     };
   }, [reference]);
 
-  return (
-    <div className="mx-auto flex max-w-lg flex-col items-center px-4 py-20 text-center sm:px-6">
-      {error ? (
-        <>
-          <XCircle className="mb-4 h-14 w-14 text-red-500" />
-          <h1 className="mb-2 text-xl font-bold text-ink-900">Something went wrong</h1>
-          <p className="mb-6 text-sm text-gray-500">{error}</p>
+  if (error) {
+    return (
+      <ResultCard>
+        <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-red-50">
+          <XCircle className="h-7 w-7 text-red-500" />
+        </span>
+        <h1 className="mt-4 text-lg font-bold text-ink-900">Something went wrong</h1>
+        <p className="mx-auto mt-1.5 max-w-sm text-sm leading-relaxed text-gray-500">{error}</p>
+        {reference && (
+          <p className="mt-3 font-mono text-xs text-gray-400">Reference: {reference}</p>
+        )}
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <a href={CONTACT.whatsappLink} target="_blank" rel="noopener noreferrer">
+            <Button>
+              <MessageCircle className="h-4 w-4" />
+              Contact support
+            </Button>
+          </a>
           <Link href="/products">
             <Button variant="outline">Back to shop</Button>
           </Link>
-        </>
-      ) : !result ? (
-        <>
-          <Spinner className="mb-4 h-10 w-10" />
-          <h1 className="text-xl font-bold text-ink-900">Confirming your payment...</h1>
-          <p className="mt-2 text-sm text-gray-500">Reference: {reference}</p>
-        </>
-      ) : result.status === "successful" ? (
-        <>
-          <CheckCircle2 className="mb-4 h-14 w-14 text-emerald-500" />
-          <h1 className="mb-2 text-xl font-bold text-ink-900">Payment successful</h1>
-          <p className="mb-6 text-sm text-gray-500">
-            Order <span className="font-medium text-ink-900">{result.order_number}</span> has been placed.
-          </p>
-          <div className="flex gap-3">
-            <Link href={session ? `/orders/${result.order_number}` : `/track-order?order=${result.order_number}`}>
-              <Button>View order</Button>
-            </Link>
-            <Link href="/products">
-              <Button variant="outline">Continue shopping</Button>
-            </Link>
-          </div>
-        </>
-      ) : (
-        <>
-          <XCircle className="mb-4 h-14 w-14 text-red-500" />
-          <h1 className="mb-2 text-xl font-bold text-ink-900">Payment not completed</h1>
-          <p className="mb-6 text-sm text-gray-500">
-            Your payment is {result.status}. If you were charged, contact support with reference {result.reference}.
-          </p>
-          <Link href="/cart">
-            <Button variant="outline">Back to cart</Button>
+        </div>
+      </ResultCard>
+    );
+  }
+
+  if (!result) {
+    return (
+      <ResultCard>
+        <Spinner className="mx-auto mb-4 h-10 w-10" />
+        <h1 className="text-lg font-bold text-ink-900">Confirming your payment...</h1>
+        <p className="mt-1.5 text-sm text-gray-500">This usually takes a few seconds.</p>
+        <p className="mt-3 font-mono text-xs text-gray-400">Reference: {reference}</p>
+      </ResultCard>
+    );
+  }
+
+  if (result.status === "successful") {
+    return (
+      <ResultCard>
+        <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-emerald-50">
+          <CheckCircle2 className="h-7 w-7 text-emerald-600" />
+        </span>
+        <h1 className="mt-4 text-lg font-bold text-ink-900">Payment successful</h1>
+        <p className="mt-1.5 text-sm leading-relaxed text-gray-500">
+          Order <span className="font-semibold text-ink-900">{result.order_number}</span> has been placed. We will
+          confirm the delivery details with you shortly.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <Link href={session ? `/orders/${result.order_number}` : `/track-order?order=${result.order_number}`}>
+            <Button size="lg">View order</Button>
           </Link>
-        </>
-      )}
-    </div>
+          <Link href="/products">
+            <Button variant="outline" size="lg">
+              Continue shopping
+            </Button>
+          </Link>
+        </div>
+      </ResultCard>
+    );
+  }
+
+  return (
+    <ResultCard>
+      <span className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-red-50">
+        <XCircle className="h-7 w-7 text-red-500" />
+      </span>
+      <h1 className="mt-4 text-lg font-bold text-ink-900">Payment not completed</h1>
+      <p className="mx-auto mt-1.5 max-w-sm text-sm leading-relaxed text-gray-500">
+        Your payment is {result.status}. If you were charged, send us the reference below and we will sort it out.
+      </p>
+      <p className="mt-3 font-mono text-xs text-gray-400">Reference: {result.reference}</p>
+      <div className="mt-6 flex flex-wrap justify-center gap-3">
+        <Link href="/cart">
+          <Button>Back to cart</Button>
+        </Link>
+        <a href={CONTACT.whatsappLink} target="_blank" rel="noopener noreferrer">
+          <Button variant="outline">
+            <MessageCircle className="h-4 w-4" />
+            Contact support
+          </Button>
+        </a>
+      </div>
+    </ResultCard>
   );
 }
