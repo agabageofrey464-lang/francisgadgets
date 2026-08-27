@@ -47,6 +47,15 @@ export default async function AccountPage() {
           )}
         </div>
 
+        {user?.role === "admin" && (
+          <Link
+            href="/admin"
+            className="mt-4 flex items-center justify-between rounded-lg border border-brand-200 bg-brand-50 px-3.5 py-2.5 text-sm font-semibold text-brand-700 transition-colors hover:bg-brand-100"
+          >
+            Open the admin dashboard
+            <ChevronRight className="h-4 w-4" />
+          </Link>
+        )}
       </div>
 
       <div className="mt-4 grid gap-3 sm:grid-cols-3">

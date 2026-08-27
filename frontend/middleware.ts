@@ -3,8 +3,15 @@ import { NextResponse } from "next/server";
 
 export default withAuth(
   function middleware(req) {
-    // Administration lives in the backend API, not here -- the storefront only
-    // guards a signed-in shopper's own pages.
+    const { pathname } = req.nextUrl;
+    const role = req.nextauth.token?.role;
+
+    if (pathname.startsWith("/admin") && role !== "admin") {
+      // Keep the destination so the sign-in page knows to show the admin variant.
+      const loginUrl = new URL("/login", req.url);
+      loginUrl.searchParams.set("callbackUrl", pathname);
+      return NextResponse.redirect(loginUrl);
+    }
     return NextResponse.next();
   },
   {
@@ -18,5 +25,5 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/account/:path*", "/orders/:path*"],
+  matcher: ["/admin/:path*", "/account/:path*", "/orders/:path*"],
 };

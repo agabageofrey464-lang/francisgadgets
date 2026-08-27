@@ -2,6 +2,7 @@
 
 import {
   ChevronRight,
+  LayoutDashboard,
   LogOut,
   Package,
   Phone,
@@ -32,9 +33,10 @@ interface MobileMenuProps {
   onClose: () => void;
   categories: Category[];
   isAuthenticated: boolean;
+  isAdmin: boolean;
 }
 
-export function MobileMenu({ open, onClose, categories, isAuthenticated }: MobileMenuProps) {
+export function MobileMenu({ open, onClose, categories, isAuthenticated, isAdmin }: MobileMenuProps) {
   const pathname = usePathname();
 
   // Close on navigation -- the drawer would otherwise stay open over the new page.
@@ -157,6 +159,18 @@ export function MobileMenu({ open, onClose, categories, isAuthenticated }: Mobil
                     My Orders
                   </Link>
                 </li>
+                {isAdmin && (
+                  <li>
+                    <Link
+                      href="/admin"
+                      onClick={onClose}
+                      className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-ink-900 hover:bg-gray-50"
+                    >
+                      <LayoutDashboard className="h-4 w-4 text-gray-400" />
+                      Admin dashboard
+                    </Link>
+                  </li>
+                )}
                 <li>
                   <button
                     onClick={() => {
