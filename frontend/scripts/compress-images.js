@@ -66,7 +66,17 @@ async function main() {
       pipeline = pipeline.jpeg({ quality: JPEG_QUALITY, mozjpeg: true, progressive: true });
     }
 
-    const output = await pipeline.toBuffer();
+    // A download can be subtly malformed ("Invalid SOS parameters" and friends).
+    // One bad file must not abort the run for the other 160.
+    let output;
+    try {
+      output = await pipeline.toBuffer();
+    } catch (err) {
+      console.log(`  ${file.padEnd(52)} SKIPPED - ${String(err.message).slice(0, 46)}`);
+      after += original.length;
+      skipped += 1;
+      continue;
+    }
 
     // Never write a file that got bigger -- some are already well optimised.
     if (output.length >= original.length) {
