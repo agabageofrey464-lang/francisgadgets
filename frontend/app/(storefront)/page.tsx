@@ -214,11 +214,7 @@ export default async function HomePage() {
         />
       ))}
 
-      {/* Below the rails: the standing offers again -- a shopper who has scrolled
-          this far has seen the stock and is deciding whether to buy. */}
-      <section className="mx-auto max-w-7xl px-4 pb-8 pt-4 sm:px-6">
-        <FestivalStrip layout="row" />
-      </section>
+      <div className="pb-10" />
     </div>
   );
 }

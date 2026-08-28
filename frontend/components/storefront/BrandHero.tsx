@@ -1,22 +1,21 @@
-import { ArrowRight, Cctv, Headphones, Laptop, ShieldCheck, Smartphone, Truck } from "lucide-react";
+import { ArrowRight, ShieldCheck, Truck } from "lucide-react";
 import Link from "next/link";
 
 import { CONTACT } from "@/lib/social";
 
 /**
- * Dark brand statement panel that closes the homepage: who we are, what we
- * stand behind, and a way into the four categories people arrive looking for.
+ * Dark brand band that opens the homepage: who we are, what we stand behind,
+ * and the two ways to start -- browse, or ask us.
  *
- * It opens the homepage, so it carries the page's h1 -- the homepage has no
- * other visible headline at that level.
+ * It carries the page's h1; the homepage has no other visible headline at that
+ * level.
+ *
+ * Deliberately a slim band rather than a full-height hero: the shopping row
+ * (category rail, carousel, offers) sits immediately beneath it and is what
+ * people actually came for. It also carries no category tiles -- those would be
+ * the third way to reach a category on one page, after the rail below it and
+ * the "Shop by category" grid further down.
  */
-const HERO_TILES = [
-  { href: "/products?category=smartphones", label: "Phones", icon: Smartphone },
-  { href: "/products?category=laptops", label: "Laptops", icon: Laptop },
-  { href: "/products?category=cctv-security-cameras", label: "CCTV", icon: Cctv },
-  { href: "/products?category=audio", label: "Audio", icon: Headphones },
-];
-
 export function BrandHero() {
   return (
     <section className="relative overflow-hidden bg-ink-900">
@@ -29,17 +28,17 @@ export function BrandHero() {
         aria-hidden
       />
 
-      <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:py-20 lg:grid-cols-[1.15fr_1fr] lg:items-center">
-        <div className="flex flex-col items-start gap-5">
+      <div className="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 md:py-11">
+        <div className="flex max-w-3xl flex-col items-start gap-4">
           <span className="rounded-full bg-brand-600/20 px-3 py-1 text-xs font-medium text-brand-300">
             New arrivals every week
           </span>
 
-          <h1 className="text-3xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-5xl">
+          <h1 className="text-2xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-3xl md:text-4xl">
             Your digital dreams, <span className="bg-brand-flag bg-clip-text text-transparent">delivered.</span>
           </h1>
 
-          <p className="max-w-xl text-base text-gray-300 sm:text-lg">
+          <p className="max-w-2xl text-sm leading-relaxed text-gray-300 sm:text-base">
             Genuine phones, laptops, desktops, CCTV and security cameras, GPS trackers and accessories &mdash; sourced
             properly, priced fairly, and delivered anywhere in Uganda.
           </p>
@@ -74,21 +73,6 @@ export function BrandHero() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-4">
-          {HERO_TILES.map((tile) => (
-            <Link
-              key={tile.href}
-              href={tile.href}
-              className="group flex flex-col gap-3 rounded-xl bg-white/5 p-5 ring-1 ring-inset ring-white/10 transition-colors hover:bg-white/10 hover:ring-brand-400/40"
-            >
-              <tile.icon className="h-6 w-6 text-accent-500" />
-              <span className="flex items-center justify-between text-sm font-semibold text-white">
-                {tile.label}
-                <ArrowRight className="h-4 w-4 text-gray-500 transition-transform group-hover:translate-x-0.5 group-hover:text-white" />
-              </span>
-            </Link>
-          ))}
-        </div>
       </div>
     </section>
   );
