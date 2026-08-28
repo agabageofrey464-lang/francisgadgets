@@ -58,11 +58,22 @@ These are safe locally but wrong in production. None are set for you.
 
 ## Known gaps — decide before launch
 
-1. **Product photos are stand-ins.** They show the right kind of device but not
-   the exact unit stocked. Worse, several are plainly wrong — a screen protector
-   showing a power bank, a kettle showing a microwave — because photos were
-   sourced per *category* and dealt round-robin across the products in it.
-   Replace them via the admin dashboard, or ask for a per-product re-source pass.
+1. **Product photos.** 120 of 160 products have a photo; the other 40 draw the
+   house illustration instead.
+
+   Those 40 were cleared deliberately. An audit against the Commons file each
+   photo actually came from found 41 products showing something else entirely —
+   a screen protector showing a power bank, an iron and a blender both showing
+   microwave ovens, a scanner showing a slot canyon, and one image wholly
+   unsuitable for a shop. An automated re-source was attempted first and could
+   not be trusted (it matched iPads to routers and desktop PCs to Linux
+   screenshots), so the wrong images were removed rather than replaced by more
+   guesses. The list is in `backend/scripts/seed.py` under
+   `PHOTOS_CLEARED_AS_WRONG`; upload real photographs via
+   `/admin/products/<id>`.
+
+   The remaining 120 photos are of the right *kind* of device but not
+   necessarily the exact unit stocked — still worth reviewing before launch.
 
 2. **Wikimedia photos need attribution.** Most are CC BY-SA. Sources are recorded
    in `backend/scripts/seed.py`. Credit them or replace with your own photography.

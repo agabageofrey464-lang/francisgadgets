@@ -108,6 +108,53 @@ WIKIMEDIA_PHOTO_SOURCES = [
 # They are honest about the category but NOT pictures of the actual stock, which
 # a customer could reasonably object to. Swap each one for a real photo of the
 # item -- via /admin image upload or _local() -- as soon as shots are available.
+# Products whose sourced photo turned out to show the wrong thing entirely --
+# audited against the Commons file each image actually came from. Their photos
+# were cleared, so the storefront draws its category illustration instead. Upload
+# a real photograph via /admin/products/<id> to replace one.
+PHOTOS_CLEARED_AS_WRONG = [
+    "Annual CCTV Maintenance Contract",
+    "Ativa 12-Sheet Micro-Cut Shredder",
+    "Bill Counter BC-2020 with UV/MG",
+    "Braided USB-C to Lightning Cable 2m",
+    "CCTV Site Survey & Quotation",
+    "Canon CanoScan LiDE 300 Flatbed",
+    "Canon DR-C225 II Document Scanner",
+    "Canon PIXMA G3420 Ink Tank Printer",
+    "Cassida 5520 UV Bill Counter",
+    "Dell 24\" P2422H Full HD IPS Monitor",
+    "Epson EB-S41 SVGA 3LCD Projector",
+    "Epson EB-X51 XGA 3LCD Projector",
+    "Epson EcoTank L3250 All-in-One",
+    "Epson Perfection V39 Scanner",
+    "Glory GFB-800 Banknote Counter",
+    "HP E27 G5 27\" QHD Monitor",
+    "HP LaserJet MFP M141a",
+    "HP LaserJet Pro M404dn Printer",
+    "HP Wired Optical Mouse USB",
+    "Hikvision 8-Channel DVR with 1TB HDD",
+    "JBL Bar 2.0 All-in-One Soundbar",
+    "JBL Tune 510BT Wireless Headphones",
+    "Laptop Cooling Pad with 5 Fans",
+    "Logitech MK270 Wireless Keyboard & Mouse",
+    "Mercury 650VA Line-Interactive UPS",
+    "Mikrotik hAP ac lite Router",
+    "Nunix 2-Burner Table Top Gas Cooker",
+    "Oraimo FreePods 4 Earbuds",
+    "Philips Daily Collection Blender HR2221",
+    "Portable Mini Note Counter MC-100",
+    "Ramtons Dry Iron RM/188",
+    "Rexel Momentum X410 Shredder",
+    "SanDisk Ultra 64GB USB 3.0 Flash Drive",
+    "Seagate 1TB Portable External HDD",
+    "Sony WH-CH520 Wireless Headphones",
+    "TP-Link Archer C6 AC1200 Router",
+    "TP-Link TL-WA855RE Wi-Fi Extender",
+    "Tempered Glass Screen Protector",
+    "Universal Phone Ring Holder Stand",
+    "Von 1.7L Cordless Electric Kettle",
+]
+
 STANDIN_PHOTOS_TO_REPLACE = {
     "products/tecno-t313-dual-sim-1-77-display-4mb.jpg": "https://commons.wikimedia.org/wiki/File:A_Nokia_105_feature_phone.jpg",
     "products/tecno-t315-dual-sim-2-4-qqvga-display-4mb.jpg": "https://commons.wikimedia.org/wiki/File:Nokia_130.jpg",
