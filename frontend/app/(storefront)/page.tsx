@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { AdSlot } from "@/components/storefront/AdSlot";
+import { BrandHero } from "@/components/storefront/BrandHero";
 import { CategorySidebar } from "@/components/storefront/CategorySidebar";
 import { FestivalStrip } from "@/components/storefront/FestivalStrip";
 import { HeroBanner } from "@/components/storefront/HeroBanner";
@@ -199,7 +200,14 @@ export default async function HomePage() {
         />
       ))}
 
-      <div className="pb-8" />
+      {/* Below the rails: the standing offers again -- a shopper who has scrolled
+          this far has seen the stock and is deciding whether to buy -- then the
+          brand panel to close the page. */}
+      <section className="mx-auto max-w-7xl px-4 pb-8 pt-4 sm:px-6">
+        <FestivalStrip layout="row" />
+      </section>
+
+      <BrandHero />
     </div>
   );
 }

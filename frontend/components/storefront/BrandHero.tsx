@@ -4,9 +4,13 @@ import Link from "next/link";
 import { CONTACT } from "@/lib/social";
 
 /**
- * Dark brand statement panel. Parked -- not currently rendered on the homepage
- * while the layout is being decided. Drop <BrandHero /> back into
- * app/(storefront)/page.tsx to bring it back.
+ * Dark brand statement panel that closes the homepage: who we are, what we
+ * stand behind, and a way into the four categories people arrive looking for.
+ *
+ * It sits below the product rails rather than above them -- a shopper who has
+ * scrolled that far has seen the stock and is deciding whether to trust the
+ * shop, which is exactly what this answers. Its heading is an h2 because the
+ * page's h1 is the document title at the top.
  */
 const HERO_TILES = [
   { href: "/products?category=smartphones", label: "Phones", icon: Smartphone },
@@ -33,9 +37,9 @@ export function BrandHero() {
             New arrivals every week
           </span>
 
-          <h1 className="text-3xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-5xl">
+          <h2 className="text-3xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-4xl md:text-5xl">
             Your digital dreams, <span className="bg-brand-flag bg-clip-text text-transparent">delivered.</span>
-          </h1>
+          </h2>
 
           <p className="max-w-xl text-base text-gray-300 sm:text-lg">
             Genuine phones, laptops, desktops, CCTV and security cameras, GPS trackers and accessories &mdash; sourced
