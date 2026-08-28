@@ -115,6 +115,27 @@ nslookup api.francisgadgetstechnologies.com
 - [ ] Switch payment keys to live mode only after the above is verified
 - [ ] Set a strong `SEED_ADMIN_PASSWORD` (or change the admin password after first login) before going live
 
+## Restoring the catalogue on a new machine
+
+`backend/dev.db` is gitignored, so a clone has no data. The catalogue is kept in
+version control as `backend/scripts/catalogue_data.py` instead:
+
+```bash
+cd backend
+alembic upgrade head                    # create the schema
+python scripts/seed_catalogue.py        # 22 categories, 160 products, 6 ads
+python scripts/set_admin.py --email you@example.com --password "YourPass123!"
+```
+
+After changing the catalogue through the admin dashboard, re-export it so the
+next clone gets your changes:
+
+```bash
+python scripts/export_catalogue.py      # rewrites catalogue_data.py
+```
+
+Then commit `catalogue_data.py`.
+
 ## Git setup
 
 Already done. The project lives at:
