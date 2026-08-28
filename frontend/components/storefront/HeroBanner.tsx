@@ -60,7 +60,13 @@ function AdColumn({ ads, index, side, muted, onToggleMute, onActiveVideoRef }: A
   );
 }
 
-export function HeroBanner({ products = [] }: { products?: ProductListItem[] }) {
+export function HeroBanner({
+  products = [],
+  aspectClassName,
+}: {
+  products?: ProductListItem[];
+  aspectClassName?: string;
+}) {
   const [ads, setAds] = useState<Ad[]>([]);
   const [index, setIndex] = useState(0);
   const [muted, setMuted] = useState(true);
@@ -129,7 +135,7 @@ export function HeroBanner({ products = [] }: { products?: ProductListItem[] }) 
       )}
 
       <div className={ads.length > 0 ? "min-w-0 flex-1" : "w-full"}>
-        <HomeMarquee products={products} />
+        <HomeMarquee products={products} aspectClassName={aspectClassName} />
       </div>
 
       {ads.length > 0 && (

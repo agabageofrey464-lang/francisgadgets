@@ -34,7 +34,14 @@ function discountPercent(price: string, compareAt: string | null): number | null
   return Math.round(((was - now) / was) * 100);
 }
 
-export function HomeMarquee({ products = [] }: { products?: ProductListItem[] }) {
+export function HomeMarquee({
+  products = [],
+  /** Wide banner by default; a narrower column wants something taller. */
+  aspectClassName = "aspect-[16/9] sm:aspect-[1920/700]",
+}: {
+  products?: ProductListItem[];
+  aspectClassName?: string;
+}) {
   // Every product has artwork now (drawn, not photographed), so nothing is
   // excluded for lacking a picture.
   const slides = products.slice(0, 6);
@@ -54,7 +61,7 @@ export function HomeMarquee({ products = [] }: { products?: ProductListItem[] })
     return (
       <Link
         href="/products?category=cctv-security-cameras"
-        className="relative block aspect-[1920/700] w-full overflow-hidden rounded-xl bg-ink-900"
+        className={`relative block w-full overflow-hidden rounded-xl bg-ink-900 ${aspectClassName}`}
       >
         {FALLBACK_SLIDES.map((slide, i) => (
           <Image
@@ -74,7 +81,7 @@ export function HomeMarquee({ products = [] }: { products?: ProductListItem[] })
 
   return (
     <div
-      className="relative aspect-[16/9] w-full overflow-hidden rounded-xl bg-ink-900 sm:aspect-[1920/700]"
+      className={`relative w-full overflow-hidden rounded-xl bg-ink-900 ${aspectClassName}`}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >

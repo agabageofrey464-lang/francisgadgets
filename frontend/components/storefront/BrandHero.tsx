@@ -4,8 +4,12 @@ import Link from "next/link";
 import { CONTACT } from "@/lib/social";
 
 /**
- * Dark brand band that opens the homepage: who we are, what we stand behind,
- * and the two ways to start -- browse, or ask us.
+ * The homepage hero: brand statement on the left, the rotating product
+ * carousel on the right, both inside one dark band.
+ *
+ * They used to be two stacked sections -- a full-height brand panel with the
+ * carousel below it -- which read as two competing heroes. Side by side, the
+ * promise and the proof sit together and the shop starts higher up the page.
  *
  * It carries the page's h1; the homepage has no other visible headline at that
  * level.
@@ -16,7 +20,7 @@ import { CONTACT } from "@/lib/social";
  * the third way to reach a category on one page, after the rail below it and
  * the "Shop by category" grid further down.
  */
-export function BrandHero() {
+export function BrandHero({ children }: { children?: React.ReactNode }) {
   return (
     <section className="relative overflow-hidden bg-ink-900">
       <div
@@ -28,8 +32,8 @@ export function BrandHero() {
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 md:py-11">
-        <div className="mx-auto flex max-w-3xl flex-col items-center gap-4 text-center">
+      <div className="relative mx-auto grid max-w-7xl items-center gap-8 px-4 py-8 sm:px-6 md:py-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-10">
+        <div className="flex flex-col items-center gap-4 text-center lg:items-start lg:text-left">
           <span className="rounded-full bg-brand-600/20 px-3 py-1 text-xs font-medium text-brand-300">
             New arrivals every week
           </span>
@@ -43,7 +47,7 @@ export function BrandHero() {
             properly, priced fairly, and delivered anywhere in Uganda.
           </p>
 
-          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:justify-center">
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:justify-center lg:justify-start">
             <Link
               href="/products"
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-700"
@@ -61,7 +65,7 @@ export function BrandHero() {
             </a>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-300">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-300 lg:justify-start">
             <span className="flex items-center gap-1.5">
               <ShieldCheck className="h-4 w-4 text-accent-500" />
               Genuine products
@@ -72,6 +76,10 @@ export function BrandHero() {
             </span>
           </div>
         </div>
+
+        {/* The carousel. Rendered as a child so this component stays about
+            layout and the homepage keeps deciding which products to show. */}
+        {children && <div className="min-w-0">{children}</div>}
 
       </div>
     </section>

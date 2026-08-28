@@ -104,13 +104,14 @@ export default async function HomePage() {
       {/* Brand statement first: who we are and the four things most people come
           looking for. It carries the page's h1, so there is no separate
           screen-reader-only heading. */}
-      <BrandHero />
+      <BrandHero>
+        <HeroBanner products={heroProducts} aspectClassName="aspect-[16/10] sm:aspect-[16/9]" />
+      </BrandHero>
 
       <section className="mx-auto max-w-7xl px-4 pt-4 sm:px-6">
         <div className="grid gap-4 lg:grid-cols-[15rem_1fr] xl:grid-cols-[15rem_1fr_15rem]">
           <CategorySidebar categories={stockedCategories} />
           <div className="flex min-w-0 flex-col">
-            <HeroBanner products={heroProducts} />
             {/* The category rail lists all 22 categories and stands taller than
                 the carousel; these rotating strips fill the rest of the column. */}
             <HeroDealStrips
