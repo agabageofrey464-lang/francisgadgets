@@ -14,7 +14,7 @@ export function HeroQuickPicks({ products }: { products: ProductListItem[] }) {
   if (picks.length === 0) return null;
 
   return (
-    <div className="mt-4 hidden grid-cols-4 gap-3 lg:grid">
+    <div className="mt-5 hidden grid-cols-4 gap-3 lg:grid">
       {picks.map((product) => (
         <Link
           key={product.id}

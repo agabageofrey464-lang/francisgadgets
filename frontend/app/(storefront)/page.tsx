@@ -6,6 +6,7 @@ import { BrandHero } from "@/components/storefront/BrandHero";
 import { CategorySidebar } from "@/components/storefront/CategorySidebar";
 import { FestivalStrip } from "@/components/storefront/FestivalStrip";
 import { HeroBanner } from "@/components/storefront/HeroBanner";
+import { HeroNewArrivals } from "@/components/storefront/HeroNewArrivals";
 import { HeroQuickPicks } from "@/components/storefront/HeroQuickPicks";
 import { ProductRail } from "@/components/storefront/ProductRail";
 import { PromiseStrip } from "@/components/storefront/PromiseStrip";
@@ -93,7 +94,8 @@ export default async function HomePage() {
     .filter((p) => isSellable(p) && dealPercent(p) > 0)
     .sort((a, b) => dealPercent(b) - dealPercent(a))
     .slice(0, 6);
-  const newArrivals = catalogue.filter(isSellable).slice(0, 6);
+  // 12 so the hero panel can take 8 and the rail lower down still gets 6.
+  const newArrivals = catalogue.filter(isSellable).slice(0, 12);
 
   // The three biggest categories each get their own row.
   const featuredCategories = [...stockedCategories].sort((a, b) => b.product_count - a.product_count).slice(0, 3);
@@ -111,6 +113,9 @@ export default async function HomePage() {
           <div className="min-w-0">
             <HeroBanner products={heroProducts} />
             <HeroQuickPicks products={deals.length >= 4 ? deals : newArrivals} />
+            {/* The category rail lists all 22 categories and stands taller than
+                the carousel; this fills the rest of the column with stock. */}
+            <HeroNewArrivals products={newArrivals} />
           </div>
           <div className="hidden xl:block">
             <FestivalStrip />
@@ -186,7 +191,7 @@ export default async function HomePage() {
         title="New arrivals"
         subtitle="Latest stock on the shelves"
         href="/products?sort=newest"
-        products={newArrivals}
+        products={newArrivals.slice(0, 6)}
       />
 
       {featuredCategories.map((category, i) => (
