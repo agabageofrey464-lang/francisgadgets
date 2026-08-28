@@ -6,7 +6,7 @@ import { BrandHero } from "@/components/storefront/BrandHero";
 import { CategorySidebar } from "@/components/storefront/CategorySidebar";
 import { FestivalStrip } from "@/components/storefront/FestivalStrip";
 import { HeroBanner } from "@/components/storefront/HeroBanner";
-import { HeroNewArrivals } from "@/components/storefront/HeroNewArrivals";
+import { HeroDealStrips } from "@/components/storefront/HeroDealStrips";
 import { HeroQuickPicks } from "@/components/storefront/HeroQuickPicks";
 import { ProductRail } from "@/components/storefront/ProductRail";
 import { PromiseStrip } from "@/components/storefront/PromiseStrip";
@@ -110,15 +110,18 @@ export default async function HomePage() {
       <section className="mx-auto max-w-7xl px-4 pt-4 sm:px-6">
         <div className="grid gap-4 lg:grid-cols-[15rem_1fr] xl:grid-cols-[15rem_1fr_15rem]">
           <CategorySidebar categories={stockedCategories} />
-          <div className="min-w-0">
+          <div className="flex min-w-0 flex-col">
             <HeroBanner products={heroProducts} />
             <HeroQuickPicks products={deals.length >= 4 ? deals : newArrivals} />
             {/* The category rail lists all 22 categories and stands taller than
-                the carousel; this fills the rest of the column with stock. */}
-            <HeroNewArrivals products={newArrivals} />
+                the carousel; these rotating strips fill the rest of the column. */}
+            <HeroDealStrips
+              className="flex-1"
+              products={deals.length > 0 ? [...deals, ...newArrivals] : newArrivals}
+            />
           </div>
-          <div className="hidden xl:block">
-            <FestivalStrip />
+          <div className="hidden xl:flex xl:flex-col">
+            <FestivalStrip className="flex-1" />
           </div>
         </div>
       </section>

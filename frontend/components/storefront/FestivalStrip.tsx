@@ -119,7 +119,13 @@ export type FestivalStripLayout = "column" | "row" | "banner";
  * - `banner` -- one slim full-width band, for the top of inner pages where a
  *               tall rail would push the actual content below the fold
  */
-export function FestivalStrip({ layout = "column" }: { layout?: FestivalStripLayout }) {
+export function FestivalStrip({
+  layout = "column",
+  className = "",
+}: {
+  layout?: FestivalStripLayout;
+  className?: string;
+}) {
   const [offer, index] = useRotatingOffer();
 
   if (layout === "banner") {
@@ -167,7 +173,10 @@ export function FestivalStrip({ layout = "column" }: { layout?: FestivalStripLay
   const isRow = layout === "row";
 
   return (
-    <aside className={isRow ? "grid gap-3 sm:grid-cols-3" : "flex flex-col gap-3"} aria-label="Offers">
+    <aside
+      className={`${isRow ? "grid gap-3 sm:grid-cols-3" : "flex flex-col gap-3"} ${className}`}
+      aria-label="Offers"
+    >
       {/* Rotating offer -- the colour is part of the offer, so the whole panel changes with it. */}
       <Link
         href={offer.href}
