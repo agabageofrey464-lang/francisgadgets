@@ -31,3 +31,6 @@ _not_for_web/
 # Local dev SQLite database (used when no Postgres is available)
 *.db
 backend/_dev_create_tables.py
+
+# Personal Claude Code settings (hooks, local overrides)
+.claude/settings.local.json
