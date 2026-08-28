@@ -7,7 +7,6 @@ import { CategorySidebar } from "@/components/storefront/CategorySidebar";
 import { FestivalStrip } from "@/components/storefront/FestivalStrip";
 import { HeroBanner } from "@/components/storefront/HeroBanner";
 import { HeroDealStrips } from "@/components/storefront/HeroDealStrips";
-import { HeroQuickPicks } from "@/components/storefront/HeroQuickPicks";
 import { ProductRail } from "@/components/storefront/ProductRail";
 import { PromiseStrip } from "@/components/storefront/PromiseStrip";
 import { CategoryTileGraphic } from "@/components/storefront/CategoryTileGraphic";
@@ -112,7 +111,6 @@ export default async function HomePage() {
           <CategorySidebar categories={stockedCategories} />
           <div className="flex min-w-0 flex-col">
             <HeroBanner products={heroProducts} />
-            <HeroQuickPicks products={deals.length >= 4 ? deals : newArrivals} />
             {/* The category rail lists all 22 categories and stands taller than
                 the carousel; these rotating strips fill the rest of the column. */}
             <HeroDealStrips
