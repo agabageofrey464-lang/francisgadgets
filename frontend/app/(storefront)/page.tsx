@@ -101,10 +101,10 @@ export default async function HomePage() {
 
   return (
     <div>
-      {/* The page's only h1 -- the visible headline lives in BrandHero, which is currently parked. */}
-      <h1 className="sr-only">
-        Francis Gadgets Technologies -- phones, laptops, CCTV and electronics in Uganda
-      </h1>
+      {/* Brand statement first: who we are and the four things most people come
+          looking for. It carries the page's h1, so there is no separate
+          screen-reader-only heading. */}
+      <BrandHero />
 
       <section className="mx-auto max-w-7xl px-4 pt-4 sm:px-6">
         <div className="grid gap-4 lg:grid-cols-[15rem_1fr] xl:grid-cols-[15rem_1fr_15rem]">
@@ -118,8 +118,16 @@ export default async function HomePage() {
               products={deals.length > 0 ? [...deals, ...newArrivals] : newArrivals}
             />
           </div>
-          <div className="hidden xl:flex xl:flex-col">
-            <FestivalStrip className="flex-1" />
+          {/* Offers keep their natural height; the ad fills whatever is left,
+              so the column reaches the bottom of the category rail with
+              something to look at rather than a block of flat colour. */}
+          <div className="hidden xl:flex xl:flex-col xl:gap-3">
+            <FestivalStrip />
+            <AdSlot
+              placement="sidebar"
+              containerClassName="flex flex-1 flex-col"
+              className="relative w-full flex-1 overflow-hidden rounded-xl bg-gray-100 ring-1 ring-black/5"
+            />
           </div>
         </div>
       </section>
@@ -207,13 +215,10 @@ export default async function HomePage() {
       ))}
 
       {/* Below the rails: the standing offers again -- a shopper who has scrolled
-          this far has seen the stock and is deciding whether to buy -- then the
-          brand panel to close the page. */}
+          this far has seen the stock and is deciding whether to buy. */}
       <section className="mx-auto max-w-7xl px-4 pb-8 pt-4 sm:px-6">
         <FestivalStrip layout="row" />
       </section>
-
-      <BrandHero />
     </div>
   );
 }

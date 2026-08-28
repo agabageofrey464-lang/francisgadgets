@@ -8,10 +8,13 @@ import type { Ad, AdPlacement } from "@/lib/types";
 
 interface Props {
   placement: AdPlacement;
+  /** Styles the media box itself (aspect ratio, rounding). */
   className?: string;
+  /** Styles the wrapper, so the slot can stretch inside a flex column. */
+  containerClassName?: string;
 }
 
-export function AdSlot({ placement, className }: Props) {
+export function AdSlot({ placement, className, containerClassName = "" }: Props) {
   const [ad, setAd] = useState<Ad | null>(null);
 
   useEffect(() => {
@@ -31,7 +34,7 @@ export function AdSlot({ placement, className }: Props) {
   if (!ad) return null;
 
   return (
-    <div>
+    <div className={containerClassName}>
       <p className="mb-1.5 text-[11px] font-medium uppercase tracking-wider text-gray-400">Sponsored</p>
       <div
         className={
