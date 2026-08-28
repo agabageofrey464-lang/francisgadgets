@@ -20,16 +20,16 @@ export function BrandHero() {
   return (
     <section className="relative overflow-hidden bg-ink-900">
       <div
-        className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-brand-600/20 blur-3xl"
+        className="pointer-events-none absolute -left-24 -top-32 h-80 w-80 rounded-full bg-brand-600/20 blur-3xl"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute -bottom-40 right-0 h-96 w-96 rounded-full bg-accent-500/10 blur-3xl"
+        className="pointer-events-none absolute -bottom-32 -right-24 h-80 w-80 rounded-full bg-accent-500/10 blur-3xl"
         aria-hidden
       />
 
       <div className="relative mx-auto max-w-7xl px-4 py-8 sm:px-6 md:py-11">
-        <div className="flex max-w-3xl flex-col items-start gap-4">
+        <div className="mx-auto flex max-w-3xl flex-col items-center gap-4 text-center">
           <span className="rounded-full bg-brand-600/20 px-3 py-1 text-xs font-medium text-brand-300">
             New arrivals every week
           </span>
@@ -43,7 +43,7 @@ export function BrandHero() {
             properly, priced fairly, and delivered anywhere in Uganda.
           </p>
 
-          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:justify-center">
             <Link
               href="/products"
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-700"
@@ -61,7 +61,7 @@ export function BrandHero() {
             </a>
           </div>
 
-          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-gray-300">
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-300">
             <span className="flex items-center gap-1.5">
               <ShieldCheck className="h-4 w-4 text-accent-500" />
               Genuine products
