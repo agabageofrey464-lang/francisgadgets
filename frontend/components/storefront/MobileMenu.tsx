@@ -22,6 +22,8 @@ import type { Category } from "@/lib/types";
 
 const BROWSE_LINKS = [
   { href: "/products", label: "All products" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/apps", label: "Our app" },
   { href: "/track-order", label: "Track an order" },
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Support" },

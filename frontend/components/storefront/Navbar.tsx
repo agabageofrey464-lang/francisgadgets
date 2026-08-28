@@ -40,6 +40,7 @@ const NAV_LINKS = [
   { href: "/products?category=networking", label: "Networking", hideBelow: "lg" },
   { href: "/products?category=phone-accessories", label: "Accessories", hideBelow: "xl" },
   { href: "/products?category=installation-services", label: "Installation", hideBelow: "xl" },
+  { href: "/gallery", label: "Gallery", hideBelow: "lg" },
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Support" },
 ] as const;

@@ -12,6 +12,8 @@ import type { Category } from "@/lib/types";
 
 const COMPANY_LINKS = [
   { href: "/about", label: "About Us" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/apps", label: "Our app" },
   { href: "/contact", label: "Contact & Support" },
   { href: "/track-order", label: "Track an order" },
   { href: "/orders", label: "My orders" },
