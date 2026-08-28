@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/storefront/Breadcrumbs";
 import { FestivalStrip } from "@/components/storefront/FestivalStrip";
 import { ProductActions } from "@/components/storefront/ProductActions";
+import { ProductAssurances } from "@/components/storefront/ProductAssurances";
 import { ProductGallery } from "@/components/storefront/ProductGallery";
 import { PromiseStrip } from "@/components/storefront/PromiseStrip";
 import { ReviewsSection } from "@/components/storefront/ReviewsSection";
@@ -115,6 +116,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               <Stars average={product.rating_average} count={product.review_count} />
               {product.sku && <span className="text-xs text-gray-400">SKU {product.sku}</span>}
             </div>
+
+            <ProductAssurances className="mt-5 border-t border-gray-100 pt-5" />
 
             {product.description && (
               <div className="mt-4 border-t border-gray-100 pt-4">

@@ -56,7 +56,7 @@ export default function RegisterPage() {
       <div className="flex flex-1 items-center justify-center px-4 py-12 sm:px-6">
       <div className="w-full max-w-sm">
       <div className="mb-6 flex items-center gap-3">
-        <Image src="/logo.jpg" alt="" width={40} height={40} className="rounded-full" />
+        <Image src="/brand/logo.jpg" alt="" width={40} height={40} className="rounded-full" />
         <span>
           <span className="block text-sm font-semibold leading-tight text-ink-900">Francis Gadgets</span>
           <span className="block text-[11px] font-semibold uppercase tracking-wider text-brand-600">Technologies</span>

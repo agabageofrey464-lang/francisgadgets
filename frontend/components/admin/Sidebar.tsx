@@ -18,7 +18,7 @@ export function Sidebar() {
       <div className="h-1 bg-brand-flag" />
       <div className="p-5">
         <Link href="/admin" className="flex items-center gap-2.5">
-          <Image src="/logo.jpg" alt="Francis Gadgets Technologies" width={40} height={40} className="rounded-full" />
+          <Image src="/brand/logo.jpg" alt="Francis Gadgets Technologies" width={40} height={40} className="rounded-full" />
           <span>
             <span className="block text-sm font-semibold leading-tight text-white">Francis Gadgets</span>
             <span className="block text-[11px] font-semibold uppercase tracking-wider text-brand-400">Admin</span>

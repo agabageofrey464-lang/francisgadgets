@@ -2,7 +2,6 @@
 
 import {
   ChevronRight,
-  LayoutDashboard,
   LogOut,
   Package,
   Phone,
@@ -33,10 +32,9 @@ interface MobileMenuProps {
   onClose: () => void;
   categories: Category[];
   isAuthenticated: boolean;
-  isAdmin: boolean;
 }
 
-export function MobileMenu({ open, onClose, categories, isAuthenticated, isAdmin }: MobileMenuProps) {
+export function MobileMenu({ open, onClose, categories, isAuthenticated }: MobileMenuProps) {
   const pathname = usePathname();
 
   // Close on navigation -- the drawer would otherwise stay open over the new page.
@@ -83,7 +81,7 @@ export function MobileMenu({ open, onClose, categories, isAuthenticated, isAdmin
 
         <div className="flex shrink-0 items-center justify-between gap-3 border-b border-gray-100 px-4 py-3">
           <Link href="/" onClick={onClose} className="flex min-w-0 items-center gap-2">
-            <Image src="/logo.jpg" alt="" width={36} height={36} className="shrink-0 rounded-full" />
+            <Image src="/brand/logo.jpg" alt="" width={36} height={36} className="shrink-0 rounded-full" />
             <span className="truncate text-sm font-semibold text-ink-900">Francis Gadgets</span>
           </Link>
           <button onClick={onClose} aria-label="Close menu" className="rounded-lg p-2 text-ink-900 hover:bg-gray-100">
@@ -159,18 +157,6 @@ export function MobileMenu({ open, onClose, categories, isAuthenticated, isAdmin
                     My Orders
                   </Link>
                 </li>
-                {isAdmin && (
-                  <li>
-                    <Link
-                      href="/admin"
-                      onClick={onClose}
-                      className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-ink-900 hover:bg-gray-50"
-                    >
-                      <LayoutDashboard className="h-4 w-4 text-gray-400" />
-                      Admin dashboard
-                    </Link>
-                  </li>
-                )}
                 <li>
                   <button
                     onClick={() => {

@@ -16,12 +16,12 @@ import { formatCurrency } from "@/lib/utils";
  * the hero always shows products the shop actually sells.
  */
 const FALLBACK_SLIDES = [
-  { src: "/AOV-SolarVu-Cameras_homepage-banner.jpg", alt: "Solar-powered Hikvision security cameras" },
-  { src: "/Hikvision-Anti-corrosion-series-camera-pc-banner.jpg", alt: "Hikvision Anti-corrosion series cameras" },
-  { src: "/Hikvision-ultra-series-PTZ-pc.jpg", alt: "Hikvision Ultra series PTZ camera" },
-  { src: "/TandemVu-PTZ-pc.jpg", alt: "Hikvision TandemVu PTZ camera" },
-  { src: "/deepinviewx-top-pc-banner.jpg", alt: "Hikvision DeepinViewX cameras" },
-  { src: "/Deepinview-banner.png", alt: "Hikvision DeepinView cameras" },
+  { src: "/banners/AOV-SolarVu-Cameras_homepage-banner.jpg", alt: "Solar-powered Hikvision security cameras" },
+  { src: "/banners/Hikvision-Anti-corrosion-series-camera-pc-banner.jpg", alt: "Hikvision Anti-corrosion series cameras" },
+  { src: "/banners/Hikvision-ultra-series-PTZ-pc.jpg", alt: "Hikvision Ultra series PTZ camera" },
+  { src: "/banners/TandemVu-PTZ-pc.jpg", alt: "Hikvision TandemVu PTZ camera" },
+  { src: "/banners/deepinviewx-top-pc-banner.jpg", alt: "Hikvision DeepinViewX cameras" },
+  { src: "/banners/Deepinview-banner.png", alt: "Hikvision DeepinView cameras" },
 ];
 
 const INTERVAL_MS = 6000;

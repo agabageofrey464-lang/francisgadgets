@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 
 import { Breadcrumbs } from "@/components/storefront/Breadcrumbs";
 import { CheckoutSteps } from "@/components/storefront/CheckoutSteps";
+import { PaymentMethods } from "@/components/storefront/PaymentMethods";
 import { Button } from "@/components/ui/Button";
 import { Input, Label } from "@/components/ui/Input";
 import { ApiError, apiFetch } from "@/lib/api";
@@ -216,6 +217,8 @@ export default function CheckoutPage() {
                 );
               })}
             </div>
+
+            <PaymentMethods className="mt-3" size={24} />
 
             <p className="mt-3 flex items-center gap-1.5 text-xs text-gray-500">
               <Lock className="h-3.5 w-3.5 text-brand-600" />

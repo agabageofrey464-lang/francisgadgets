@@ -40,13 +40,13 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     url: SITE_URL,
     locale: "en_UG",
-    images: [{ url: "/logo.jpg", width: 512, height: 512, alt: SITE_NAME }],
+    images: [{ url: "/brand/logo.jpg", width: 512, height: 512, alt: SITE_NAME }],
   },
   twitter: {
     card: "summary",
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
-    images: ["/logo.jpg"],
+    images: ["/brand/logo.jpg"],
   },
   icons: {
     icon: "/icon.jpg",

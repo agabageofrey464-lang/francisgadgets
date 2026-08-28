@@ -4,6 +4,7 @@ import { ShoppingCart } from "lucide-react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 
+import { ProductAssurances } from "@/components/storefront/ProductAssurances";
 import { ProductThumb } from "@/components/storefront/ProductThumb";
 import { Stars } from "@/components/ui/Stars";
 import { useCartStore } from "@/lib/cart-store";
@@ -79,6 +80,8 @@ export function ProductCard({ product }: { product: ProductListItem }) {
         </p>
 
         {lowStock && <p className="mt-0.5 text-xs font-medium text-accent-700">Only {product.stock_quantity} left</p>}
+
+        <ProductAssurances variant="compact" className="mt-1.5" />
 
         <button
           disabled={!inStock}

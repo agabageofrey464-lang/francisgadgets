@@ -2,6 +2,7 @@ import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { PaymentMethods } from "@/components/storefront/PaymentMethods";
 import { SocialLinks } from "@/components/storefront/SocialLinks";
 import { UgandaFlagIcon } from "@/components/storefront/UgandaFlagIcon";
 import { Diagonals } from "@/components/ui/Pattern";
@@ -42,7 +43,7 @@ export async function Footer() {
           <div>
             <div className="mb-2 flex items-center gap-2">
               <Image
-                src="/logo.jpg"
+                src="/brand/logo.jpg"
                 alt="Francis Gadgets Technologies"
                 width={36}
                 height={36}
@@ -121,15 +122,24 @@ export async function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 flex flex-col gap-3 border-t border-gray-100 pt-6 text-xs text-gray-400 sm:flex-row sm:items-center sm:justify-between">
-          <p>&copy; {new Date().getFullYear()} Francis Gadgets Technologies. All rights reserved.</p>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-            <span>Payments secured by Paystack &amp; Flutterwave</span>
-            <span className="flex items-center gap-1.5">
-              <UgandaFlagIcon className="h-3 w-[18px] shrink-0 rounded-[2px]" />
-              Uganda
-            </span>
+        {/* Pay-by row: mobile money first, which is how most orders here are paid. */}
+        <div className="mt-8 flex flex-col gap-4 border-t border-gray-100 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">We accept</p>
+            <PaymentMethods />
           </div>
+          <p className="max-w-xs text-xs leading-relaxed text-gray-400">
+            Card and mobile money payments are processed securely by Paystack and Flutterwave. We never see
+            your card details.
+          </p>
+        </div>
+
+        <div className="mt-6 flex flex-col gap-3 border-t border-gray-100 pt-6 text-xs text-gray-400 sm:flex-row sm:items-center sm:justify-between">
+          <p>&copy; {new Date().getFullYear()} Francis Gadgets Technologies. All rights reserved.</p>
+          <span className="flex items-center gap-1.5">
+            <UgandaFlagIcon className="h-3 w-[18px] shrink-0 rounded-[2px]" />
+            Uganda
+          </span>
         </div>
       </div>
     </footer>

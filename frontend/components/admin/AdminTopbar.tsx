@@ -65,7 +65,7 @@ export function AdminTopbar() {
             <Menu className="h-5 w-5" />
           </button>
 
-          <Image src="/logo.jpg" alt="" width={32} height={32} className="rounded-full md:hidden" />
+          <Image src="/brand/logo.jpg" alt="" width={32} height={32} className="rounded-full md:hidden" />
 
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm font-semibold text-ink-900 md:text-base">
@@ -131,7 +131,7 @@ export function AdminTopbar() {
 
           <div className="flex shrink-0 items-center justify-between gap-3 p-4">
             <Link href="/admin" className="flex min-w-0 items-center gap-2.5">
-              <Image src="/logo.jpg" alt="" width={36} height={36} className="shrink-0 rounded-full" />
+              <Image src="/brand/logo.jpg" alt="" width={36} height={36} className="shrink-0 rounded-full" />
               <span className="min-w-0">
                 <span className="block truncate text-sm font-semibold leading-tight text-white">Francis Gadgets</span>
                 <span className="block text-[11px] font-semibold uppercase tracking-wider text-brand-400">Admin</span>

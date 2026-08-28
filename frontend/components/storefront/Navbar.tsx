@@ -2,7 +2,6 @@
 
 import {
   ChevronDown,
-  LayoutDashboard,
   LogOut,
   Menu,
   MessageCircle,
@@ -25,13 +24,30 @@ import { cartCount, useCartStore } from "@/lib/cart-store";
 import { CONTACT } from "@/lib/social";
 import type { Category } from "@/lib/types";
 
+/**
+ * The category row. Every entry has stock behind it -- a nav link to an empty
+ * shelf is a dead end. The full list of 22 categories lives in the "Products"
+ * dropdown; these are the ones worth a permanent slot, ordered by how much of
+ * the catalogue sits behind them. `hideBelow` drops the tail on narrower
+ * screens rather than letting the row wrap.
+ */
 const NAV_LINKS = [
   { href: "/products?category=smartphones", label: "Smartphones" },
   { href: "/products?category=laptops", label: "Laptops" },
+  { href: "/products?category=desktops", label: "Desktops" },
   { href: "/products?category=cctv-security-cameras", label: "CCTV & Security" },
+  { href: "/products?category=printers", label: "Printers", hideBelow: "lg" },
+  { href: "/products?category=networking", label: "Networking", hideBelow: "lg" },
+  { href: "/products?category=phone-accessories", label: "Accessories", hideBelow: "xl" },
+  { href: "/products?category=installation-services", label: "Installation", hideBelow: "xl" },
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Support" },
-];
+] as const;
+
+const HIDE_CLASS: Record<string, string> = {
+  lg: "hidden lg:inline-flex",
+  xl: "hidden xl:inline-flex",
+};
 
 export function Navbar() {
   const { data: session } = useSession();
@@ -49,7 +65,6 @@ export function Navbar() {
   }, []);
 
   const count = mounted ? cartCount(items) : 0;
-  const isAdmin = session?.user.role === "admin";
 
   return (
     <header className="sticky top-0 z-40 border-b border-gray-200 bg-white">
@@ -100,7 +115,7 @@ export function Navbar() {
 
         <Link href="/" className="flex shrink-0 items-center gap-2.5">
           <Image
-            src="/logo.jpg"
+            src="/brand/logo.jpg"
             alt="Francis Gadgets Technologies"
             width={42}
             height={42}
@@ -115,16 +130,6 @@ export function Navbar() {
         <SearchBar categories={categories} className="hidden flex-1 md:block md:max-w-2xl" />
 
         <div className="ml-auto flex items-center gap-1">
-          {isAdmin && (
-            <Link
-              href="/admin"
-              className="hidden items-center gap-1.5 rounded-lg px-2.5 py-2 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-ink-900 sm:flex"
-            >
-              <LayoutDashboard className="h-[18px] w-[18px]" />
-              <span className="hidden xl:inline">Admin</span>
-            </Link>
-          )}
-
           {session ? (
             <>
               {/* The category row no longer carries "My Orders", so this is the
@@ -198,7 +203,13 @@ export function Navbar() {
           </div>
 
           {NAV_LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className="py-2.5 transition-colors hover:text-accent-300">
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`py-2.5 transition-colors hover:text-accent-300 ${
+                "hideBelow" in link ? HIDE_CLASS[link.hideBelow as string] : ""
+              }`}
+            >
               {link.label}
             </Link>
           ))}
@@ -220,7 +231,6 @@ export function Navbar() {
         onClose={() => setMenuOpen(false)}
         categories={categories}
         isAuthenticated={Boolean(session)}
-        isAdmin={Boolean(isAdmin)}
       />
     </header>
   );

@@ -6,17 +6,15 @@ export const SITE_DESCRIPTION =
 /**
  * What a product shows as its picture.
  *
- *   false -- the drawn house illustration (current default)
- *   true  -- the photograph stored against the product
+ *   true  -- the photograph stored against the product (current default),
+ *            falling back to the drawn illustration where a product has no
+ *            usable photo, so nothing ever renders as a broken box
+ *   false -- the drawn illustration for every product
  *
- * The photographs are NOT deleted when this is false: every one is still in the
- * database and on disk under `frontend/public/products/`. This only decides
- * what gets rendered, so flipping it back is instant and lossless.
+ * The photographs are never deleted by this setting: every one stays in the
+ * database and on disk under `frontend/public/products/`. It only decides what
+ * gets rendered, so switching is instant and lossless either way.
  *
- * It is false today because most stored photos show a similar device rather
- * than the actual unit on the shelf (a Nokia keypad phone for a Tecno one), and
- * a wrong photo misleads a buyer in a way an illustration does not. Set it to
- * true once real product photography is in place -- or override per product
- * with ProductThumb's `preferPhoto` prop.
+ * Per-product override: pass ProductThumb's `preferPhoto` prop.
  */
-export const SHOW_PRODUCT_PHOTOS = false;
+export const SHOW_PRODUCT_PHOTOS = true;
