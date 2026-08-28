@@ -32,7 +32,11 @@ postgresql+asyncpg://user:password@host:5432/dbname
    - `JWT_SECRET` -- generate with `openssl rand -base64 32`
    - `FRONTEND_URL` -- `https://francisgadgetstechnologies.com`
    - `CORS_ORIGINS` -- `https://francisgadgetstechnologies.com`
-   - `STORAGE_BACKEND=s3` and the `S3_*` vars (see step 4, Cloudflare R2) once you're ready for real product image uploads -- `local` storage doesn't persist across container restarts on most hosts
+   - `STORAGE_BACKEND=local` is fine to launch with. Every catalogue photo is
+     committed to the repo under `frontend/public/products/` and served by the
+     frontend, so the shop renders correctly with no object storage at all.
+     Switch to `s3` (step 4) before you rely on **admin image uploads** -- those
+     write to the API container's disk, which most hosts wipe on restart.
    - `PAYSTACK_SECRET_KEY` / `PAYSTACK_PUBLIC_KEY` -- from your Paystack dashboard (test keys first)
    - `FLUTTERWAVE_SECRET_KEY` / `FLUTTERWAVE_PUBLIC_KEY` / `FLUTTERWAVE_WEBHOOK_SECRET_HASH`
    - `SEED_ADMIN_EMAIL` / `SEED_ADMIN_PASSWORD` -- set a real password before running the seed script in production
@@ -47,7 +51,10 @@ postgresql+asyncpg://user:password@host:5432/dbname
 
 Test with both providers' test-mode keys before switching to live keys.
 
-## 4. Product images (Cloudflare R2)
+## 4. Product images (Cloudflare R2) -- optional at launch
+
+Skip this until you need admin uploads to survive a restart. The 160 catalogue
+photos already ship inside the frontend build and need nothing here.
 
 1. Cloudflare dashboard → R2 → Create bucket (e.g. `fgt-product-images`).
 2. Enable public access for the bucket (custom domain, e.g. `images.francisgadgetstechnologies.com`, is recommended over the default `r2.dev` URL).
@@ -73,7 +80,7 @@ Test with both providers' test-mode keys before switching to live keys.
 2. Vercel auto-detects Next.js -- no build command changes needed (`vercel.json` in `frontend/` just adds security headers).
 3. Environment variables (Production + Preview):
    - `NEXT_PUBLIC_API_URL` = `https://api.francisgadgetstechnologies.com/api/v1`
-   - `NEXT_PUBLIC_IMAGE_HOST` = `images.francisgadgetstechnologies.com` (if using R2, see step 4)
+   - `NEXT_PUBLIC_IMAGE_HOST` = only if you set up R2 in step 4; leave unset otherwise
    - `NEXTAUTH_SECRET` = generate with `openssl rand -base64 32` (different from the backend's `JWT_SECRET` -- they're unrelated, see the comment in `.env.local.example`)
    - `NEXTAUTH_URL` = `https://francisgadgetstechnologies.com`
 4. Deploy. Vercel gives you a `*.vercel.app` URL first -- confirm the build works before wiring the custom domain.
@@ -110,15 +117,18 @@ nslookup api.francisgadgetstechnologies.com
 
 ## Git setup
 
-This project wasn't initialized as a git repository. To push it to GitHub for Vercel/Render to deploy from:
+Already done. The project lives at:
 
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin <your-github-repo-url>
-git push -u origin main
+```
+https://github.com/agabageofrey464-lang/francisgadgets
 ```
 
-`.gitignore` already excludes `.env`, `.env.local`, `node_modules/`, and other local-only files.
+`main` is the deploy branch, and `origin` points at that repo. Vercel and your
+API host both connect to it directly -- no further git work is needed.
+
+A second remote, `mukisa`, points at `mukisa76/FRANCIS-` (the owner's original
+repo) for when write access is granted:
+
+```bash
+git push mukisa main
+```
