@@ -46,7 +46,9 @@ export function CategorySidebar({ categories }: { categories: Category[] }) {
         All categories
       </p>
 
-      <ul className="py-1">
+      {/* Capped and scrollable: 22 categories otherwise set the height of the
+          entire hero row, forcing whatever sits beside it to stretch to match. */}
+      <ul className="max-h-[23rem] overflow-y-auto py-1">
         {stocked.map((c) => {
           const Icon = categoryIcon(c.slug);
           const active = activeSlug === c.slug;

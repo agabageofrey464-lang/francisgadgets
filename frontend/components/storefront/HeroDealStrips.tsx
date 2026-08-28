@@ -25,7 +25,12 @@ const TONES = [
   { bg: "bg-brand-700", chip: "bg-accent-400 text-ink-900" },
   { bg: "bg-ink-800", chip: "bg-accent-400 text-ink-900" },
   { bg: "bg-brand-900", chip: "bg-accent-400 text-ink-900" },
+  { bg: "bg-ink-900", chip: "bg-accent-400 text-ink-900" },
 ];
+
+/** How many strips to stack. Four keeps each one a readable band rather than a
+ *  poster, and shows more of the stock in the same space. */
+const LANES = 4;
 
 const ROTATE_MS = 3800;
 /** Offset between strips so they never all turn over on the same tick. */
@@ -65,14 +70,14 @@ function Strip({
   return (
     <Link
       href={`/products/${product.slug}`}
-      className={`group relative flex flex-1 items-center gap-4 overflow-hidden px-4 text-white transition-colors duration-500 ${tone.bg}`}
+      className={`group relative flex min-h-[5rem] flex-1 items-center gap-4 overflow-hidden px-4 text-white transition-colors duration-500 ${tone.bg}`}
     >
       <div className="pointer-events-none absolute inset-0 text-white/[0.06]" aria-hidden>
         <DotGrid id={`deal-dots-${product.id}`} className="h-full w-full" />
       </div>
 
       {/* The product itself, on a light plate so the photo reads on dark. */}
-      <div className="relative h-[78%] w-24 shrink-0 overflow-hidden rounded-lg bg-white/95">
+      <div className="relative aspect-square h-[76%] shrink-0 overflow-hidden rounded-lg bg-white/95">
         <ProductThumb
           image={product.images[0]}
           name={product.name}
@@ -139,17 +144,17 @@ export function HeroDealStrips({
   // Genuine reductions first; top up with newest stock if there are not enough
   // to fill three strips, so the panel is never half empty.
   const discounted = products.filter((p) => discountPercent(p.price, p.compare_at_price) !== null);
-  const pool = discounted.length >= 6 ? discounted : [...discounted, ...products].slice(0, 9);
+  const pool = discounted.length >= LANES * 2 ? discounted : [...discounted, ...products].slice(0, LANES * 3);
   if (pool.length === 0) return null;
 
   // Deal the pool round-robin so each strip cycles a different set.
-  const lanes: ProductListItem[][] = [[], [], []];
-  pool.forEach((product, i) => lanes[i % 3].push(product));
+  const lanes: ProductListItem[][] = Array.from({ length: LANES }, () => []);
+  pool.forEach((product, i) => lanes[i % LANES].push(product));
   const filled = lanes.filter((lane) => lane.length > 0);
 
   return (
     <section
-      className={`mt-4 hidden min-h-[16rem] flex-col gap-px overflow-hidden rounded-xl border border-gray-200 bg-gray-200 lg:flex ${className}`}
+      className={`hidden min-h-[23rem] flex-col gap-px overflow-hidden rounded-xl border border-gray-200 bg-gray-200 lg:flex ${className}`}
       aria-label="Current deals"
     >
       {filled.map((lane, i) => (
